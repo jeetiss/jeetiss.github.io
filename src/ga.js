@@ -1,7 +1,7 @@
 import { createContext, useContext, useCallback } from 'react'
 import GA from 'ganalytics'
 
-const context = createContext(new GA('UA-126675501-1'))
+const context = createContext(GA('UA-126675501-1'))
 
 export const useAnalitycs = () => {
   const ga = useContext(context)

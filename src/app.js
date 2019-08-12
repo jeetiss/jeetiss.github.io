@@ -9,7 +9,7 @@ const validate = (values) => values.text && values !== ''
 export default () => {
   const send = useAnalitycs()
   const submit = (values, reset) => {
-    send(values)
+    send({ ec: 'send form', ea: values.text })
     reset()
   }
 
