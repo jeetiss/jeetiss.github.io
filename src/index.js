@@ -1,8 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import GAnalytics from 'ganalytics'
 
-import App from './app'
-
-const entry = document.querySelector('#root')
-
-ReactDOM.render(<App />, entry)
+GAnalytics('UA-126675501-1')
