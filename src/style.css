@@ -1,10 +1,11 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -24,10 +25,17 @@ body {
 
 body {
   display: grid;
-  grid-template-columns: minmax(auto, 1280px);
+  grid-template-columns: repeat(3, minmax(auto, 400px));
   grid-template-rows: 1fr min-content;
   justify-content: center;
   padding: 24px 24px 48px;
+  grid-gap: 24px;
+
+  color: black;
+}
+
+.full-width {
+  grid-column: 1 / -1;
 }
 
 main > img {
@@ -58,7 +66,7 @@ ul.reset ul li {
 
 a {
   --base-hover: rgb(233, 235, 255);
-  color: black;
+  color: inherit;
 
   border-radius: 1px;
   text-decoration: none;
@@ -69,11 +77,18 @@ a {
   background-size: 100% 1px;
   outline: none;
 
-  transition: background-color 0.2s ease, box-shadow 0.2s ease
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 a:hover {
   color: black;
   background-color: var(--base-hover);
   box-shadow: 0 0 0 4px var(--base-hover);
+}
+
+h1 {
+  max-width: 700px;
+  line-height: 42px;
+
+  margin: 42px 0;
 }
