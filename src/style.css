@@ -6,7 +6,7 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 html {
@@ -25,13 +25,25 @@ body {
 
 body {
   display: grid;
-  grid-template-columns: repeat(3, minmax(auto, 400px));
   grid-template-rows: 1fr min-content;
   justify-content: center;
   padding: 24px 24px 48px;
+  grid-template-columns: repeat(3, minmax(auto, 400px));
   grid-gap: 24px;
 
   color: black;
+}
+
+@media (max-width: 900px) {
+  body {
+    grid-template-columns: repeat(2, minmax(auto, 400px));
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    grid-template-columns: minmax(auto, 400px);
+  }
 }
 
 .full-width {
