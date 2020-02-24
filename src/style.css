@@ -26,11 +26,13 @@ body {
 body {
   display: grid;
   grid-template-rows: 1fr min-content;
-  justify-content: center;
-  padding: 24px 24px 48px;
   grid-template-columns: repeat(3, minmax(auto, 400px));
+  grid-auto-flow: row dense;
   grid-gap: 24px;
-
+  
+  justify-content: center;
+  
+  padding: 24px 24px 48px;
   color: black;
 }
 

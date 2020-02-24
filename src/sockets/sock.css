@@ -44,7 +44,8 @@
 }
 
 .socket-boll.enemy {
-  background-color: pink;
+  width: 24px;
+  height: 24px;
 }
 
 .boll-container > .container {
