@@ -6,9 +6,10 @@ GAnalytics('UA-126675501-1')
 const box = document.querySelector('.js-exps')
 
 const experimens = [
-  () => import('./loader/index'),
-  () => import('./sockets/index'),
-  () => import('./link/index')
+  () => import('./audio'),
+  () => import('./loader'),
+  () => import('./sockets'),
+  () => import('./link')
 ]
 
 experimens.reduce(
@@ -22,7 +23,3 @@ experimens.reduce(
       }),
   Promise.resolve(box)
 )
-
-// import('./ping').then((mdl) => {
-//   mdl.default()
-// })
