@@ -12,7 +12,12 @@ const spinner = () => html`
 export default () => {
   const node = html`
     <div class="suaqka">
-      <div class="right-bottom">Лоадер из доклада <a href="">Антона Хлыновского</a></div> 
+      <div class="right-bottom">
+        Лоадер из доклада
+        <a target="_blank" href="https://www.youtube.com/watch?v=3rWwFN2ckh0"
+          >Антона Хлыновского</a
+        >
+      </div>
     </div>
   `
 

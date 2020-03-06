@@ -9,10 +9,12 @@ export default () => {
       <div class="cred">
         Icon made by
         <a
+          target="_blank"
           href="https://www.flaticon.com/authors/pixel-perfect"
           title="Pixel perfect"
-          >Pixel perfect</a
         >
+          Pixel perfect
+        </a>
       </div>
 
       <div class="cursor">
