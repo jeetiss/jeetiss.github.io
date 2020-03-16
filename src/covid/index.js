@@ -4,12 +4,10 @@ import createChart from 'covid-charts'
 export default () => {
   const node = html`
     <div>
-      <p>Статистика по covid-19:</p>
+      <div class="chart" style="margin-bottom: 8px"></div>
 
-      <div class="chart"></div>
-
-      <a href="https://jeetiss.github.io/covid-charts/">
-        Добавить себе
+      <a href="https://jeetiss.github.io/covid-charts/" >
+        COVID-19 widget
       </a>
     </div>
   `
