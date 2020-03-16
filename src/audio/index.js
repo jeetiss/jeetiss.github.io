@@ -1,27 +1,93 @@
+import { createMachine, interpret } from '@xstate/fsm'
 import { html } from '../html'
 import './audio.css'
 
-function calculateTotalValue (length) {
-  const minutes = Math.floor(length / 60)
-  const seconds = Math.round(length - minutes * 60).toString().substr(0, 2)
+// function calculateTotalValue (length) {
+//   const minutes = Math.floor(length / 60)
+//   const seconds = Math.round(length - minutes * 60).toString().substr(0, 2)
 
-  return `${minutes}:${seconds}`
+//   return `${minutes}:${seconds}`
+// }
+
+// function calculateCurrentValue (time) {
+//   var minutes = parseInt(time / 60) % 60
+//   var seconds = (time % 60).toFixed().padStart(2, '0')
+
+//   return `${minutes}:${seconds}`
+// }
+
+const pickFn = (options, effect) => {
+  const effectFn =
+    typeof effect === 'string' ? options.effects[effect] : effect
+  if (typeof effectFn === 'function') {
+    return effectFn
+  }
+
+  throw Error(`not found effect: ${effect}`)
 }
 
-function calculateCurrentValue (time) {
-  var minutes = parseInt(time / 60) % 60
-  var seconds = (time % 60).toFixed().padStart(2, '0')
+const Machine = (config, options) => {
+  const effects = []
+  let effectIndex = 0
+  const createEffect = effectFn => {
+    const index = effectIndex++
 
-  return `${minutes}:${seconds}`
+    const entry = (context, event) => {
+      effects[index] = effectFn({ send: service.send, context, event })
+    }
+
+    const exit = () => {
+      if (typeof effects[index] === 'function') {
+        effects[index]()
+      }
+    }
+
+    return {
+      entry,
+      exit
+    }
+  }
+
+  const states = Object.fromEntries(
+    Object.entries(config.states).map(([name, state]) => {
+      if (state.effects) {
+        const effects = state.effects.map(effect =>
+          createEffect(pickFn(options, effect))
+        )
+
+        return [
+          name,
+          {
+            ...state,
+            entry: (state.entry || []).concat(
+              effects.map(effect => effect.entry)
+            ),
+            exit: (state.exit || []).concat(effects.map(effect => effect.exit))
+          }
+        ]
+      }
+
+      return [name, state]
+    })
+  )
+
+  const service = interpret(
+    createMachine(
+      {
+        ...config,
+        states
+      },
+      options
+    )
+  )
+
+  return service
 }
 
-export default () => {
+const player = src => {
   const node = html`
     <div class="player">
-      <audio
-        src="https://mdn.github.io/webaudio-examples/audio-analyser/viper.mp3"
-        crossorigin="anonymous"
-      ></audio>
+      <audio src="${src}" crossorigin="anonymous"></audio>
 
       <span class="info current"></span>
 
@@ -55,66 +121,112 @@ export default () => {
     </div>
   `
 
-  const current = node.querySelector('.current')
-  const total = node.querySelector('.total')
-
-  // load some sound
-  let playing = false
   const audioElement = node.querySelector('audio')
-  const playButton = node.querySelector('.control')
+  // const playButton = node.querySelector('.control')
+  // const current = node.querySelector('.current')
+  // const total = node.querySelector('.total')
 
-  // if track ends
-  audioElement.addEventListener(
-    'ended',
-    () => {
-      playing = false
-      playButton.dataset.playing = playing
-    },
-    false
-  )
-
-  // play pause audio
-  playButton.addEventListener(
-    'click',
-    function () {
-      if (playing) {
-        audioElement.pause()
-        // if track is playing pause it
-      } else {
-        audioElement.play()
+  const audioMachine = createMachine(
+    {
+      id: 'light',
+      initial: 'initial',
+      states: {
+        initial: {
+          on: {
+            LOAD: 'idle'
+          }
+        },
+        idle: {
+          entry: ['log'],
+          on: {
+            PLAY: 'playing'
+          }
+        },
+        playing: {
+          entry: ['play'],
+          on: {
+            PAUSE: 'paused'
+          }
+        },
+        paused: {
+          entry: ['pause'],
+          on: {
+            PLAY: 'playing'
+          }
+        }
       }
-
-      playing = !playing
-      playButton.dataset.playing = playing
     },
-    false
-  )
-
-  const createUpdateTimeline = () => {
-    let prevNow
-    let prevAll
-    return (now, all) => {
-      if (now !== prevNow) {
-        current.textContent = calculateCurrentValue(now)
-        prevNow = now
-      }
-
-      if (all !== prevAll) {
-        total.textContent = calculateTotalValue(all)
-        prevAll = all
+    {
+      actions: {
+        play: (context, event) => {
+          console.log('play', context, event)
+        },
+        pause: (context, event) => {
+          console.log('pause', context, event)
+        },
+        log: (context, event) => {
+          console.log('log', audioElement.duration, audioElement.currentTime)
+        }
       }
     }
+  )
+
+  const service = interpret(audioMachine)
+
+  service.subscribe(state => {
+    console.log(state.value)
+  })
+
+  service.start()
+
+  audioElement.addEventListener('loadeddata', () => {
+    console.log('loaded')
+    service.send('LOAD')
+  })
+
+  return {
+    element: node
   }
+}
 
-  const updater = createUpdateTimeline()
+export default () => {
+  // const track =
+  //   'https://mdn.github.io/webaudio-examples/audio-analyser/viper.mp3'
 
-  const loop = () => {
-    updater(audioElement.currentTime, audioElement.duration)
+  const machine = Machine(
+    {
+      initial: 'idle',
+      context: {
+        count: 0
+      },
+      states: {
+        idle: {
+          effects: ['timeout'],
+          on: {
+            TIMER: 'work'
+          }
+        },
+        work: {
+          effects: [() => console.log('hehe 21'), 'timeout'],
+          on: {
+            TIMER: 'idle'
+          }
+        }
+      }
+    },
+    {
+      effects: {
+        timeout: ({ send }) => {
+          const id = setTimeout(() => send('TIMER'), 2000)
+          return () => clearTimeout(id)
+        }
+      }
+    }
+  )
 
-    window.requestAnimationFrame(loop)
-  }
+  machine.start()
 
-  loop()
+  // return player(track).element
 
-  return node
+  return document.createElement('span')
 }
