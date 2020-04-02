@@ -1,4 +1,4 @@
-import { html } from '../html'
+import { html } from './html'
 import createChart from 'covid-charts'
 
 export default () => {
