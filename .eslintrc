@@ -1,4 +1,9 @@
 {
-  "extends": ["standard"],
-  "parser": "babel-eslint"
+  "extends": ["standard", "standard-jsx"],
+  "parser": "babel-eslint",
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  }
 }

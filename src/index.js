@@ -8,7 +8,8 @@ const box = document.querySelector('.js-exps')
 
 const experimens = [
   // () => import('./audio'),
-  // () => import('./custom'),
+  () => import('./svelte'),
+  () => import('./preact'),
   () => import('./covid'),
   () => import('./loader'),
   () => import('./sockets'),
