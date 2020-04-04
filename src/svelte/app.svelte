@@ -13,3 +13,9 @@
 
 	<input type="text" on:input={handleInput} />
 </main>
+
+<style>
+  h3 {
+    color: rebeccapurple;
+  }
+</style>

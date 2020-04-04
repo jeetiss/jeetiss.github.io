@@ -20,7 +20,6 @@ export default ({ attributes, files, publicPath }) => {
       <meta name="theme-color" content="#000000" />
       <title>-_-</title>
       <link rel="stylesheet" href="styles.css" />
-      <link rel="stylesheet" href="bundle.css" />
     </head>
 
     <body>
