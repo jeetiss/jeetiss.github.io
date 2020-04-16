@@ -12,6 +12,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Log
+        env:
+          CONTEXT: ${{ github.ref != 'dev' && format('{{{0}-{1}-{2}}}', 'review', github.ref, github.run_id) }}
+        run: echo "$CONTEXT"
+
       - name: Checkout
         uses: actions/checkout@v2
 
