@@ -36,6 +36,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: master
           FOLDER: dist
-          TARGET_FOLDER: ${{ github.ref != 'dev' && format('{{{0}-{1}-{2}}}', 'review', env.BRANCH_NAME, github.run_id) }}
+          TARGET_FOLDER: ${{ github.ref != 'dev' && format('{0}-{1}-{2}', 'review', env.BRANCH_NAME, github.run_id) }}
           CLEAN: false
           SINGLE_COMMIT: true
