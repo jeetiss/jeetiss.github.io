@@ -18,7 +18,7 @@ jobs:
 
       - name: Log
         env:
-          CONTEXT: ${{ env.BRANCH_NAME != 'dev' && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
+          CONTEXT: ${{ env.BRANCH_NAME != null && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
         run: echo "$CONTEXT"
 
       - name: Checkout
@@ -36,6 +36,5 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: master
           FOLDER: dist
-          TARGET_FOLDER: ${{ env.BRANCH_NAME != 'dev' && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
+          TARGET_FOLDER: ${{ env.BRANCH_NAME != null && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
           CLEAN: false
-          SINGLE_COMMIT: true
