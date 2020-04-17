@@ -1,15 +1,11 @@
-name: Build and Deploy
+name: Remove Preview Deploy
 
 on:
-  push:
-    branches:
-      - dev
   pull_request:
-    branches:
-      - "*"
+    types: [closed]
 
 jobs:
-  build-and-deploy:
+  remove:
     runs-on: ubuntu-latest
     steps:
       - uses: igordcsouza/github-action-get-branch-name@master
@@ -17,25 +13,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log
+        run: echo $TARGET_FOLDER
         env:
-          CONTEXT: ${{ env.BRANCH_NAME != 'dev' && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
-        run: echo "$CONTEXT"
+          TARGET_FOLDER: ${{ format('{0}-{1}', 'review', env.BRANCH_NAME) }}
 
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: 'master'
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+      - name: Remove folder
+        run: rm -rf "$TARGET_FOLDER"
+        env:
+          TARGET_FOLDER: ${{ format('{0}-{1}', 'review', env.BRANCH_NAME) }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: master
-          FOLDER: dist
-          TARGET_FOLDER: ${{ env.BRANCH_NAME != 'dev' && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
+          FOLDER: .
           CLEAN: false
           SINGLE_COMMIT: true
