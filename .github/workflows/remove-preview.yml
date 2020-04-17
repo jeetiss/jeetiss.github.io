@@ -20,12 +20,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: master
 
       - name: Remove folder
         run: rm -rf "$TARGET_FOLDER"
         env:
           TARGET_FOLDER: ${{ format('{0}-{1}', 'review', env.BRANCH_NAME) }}
+
+      - name: Log
+        run: ls -l
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
@@ -34,4 +37,3 @@ jobs:
           BRANCH: master
           FOLDER: .
           CLEAN: false
-          SINGLE_COMMIT: true
