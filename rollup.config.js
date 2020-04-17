@@ -20,6 +20,7 @@ export default {
   output: {
     format: 'esm',
     dir: 'dist',
+    chunkFileNames: isDev ? '[name].js' : '[hash].js',
     sourcemap: isDev ? 'inline' : undefined
   },
 
