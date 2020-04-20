@@ -12,15 +12,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: igordcsouza/github-action-get-branch-name@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Log
-        env:
-          CONTEXT: ${{ env.BRANCH_NAME != null && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
-        run: echo "$CONTEXT"
-
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -37,4 +28,5 @@ jobs:
           BRANCH: master
           FOLDER: dist
           TARGET_FOLDER: ${{ env.BRANCH_NAME != null && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
-          CLEAN: false
+          SINGLE_COMMIT: true
+          CLEAN: true
