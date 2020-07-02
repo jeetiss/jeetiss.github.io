@@ -129,7 +129,7 @@ const svg = css`
 export default () => {
   const node = html`
     <div class=${example}>
-      <p class=${paragraph}>Ховер</p>
+      <p class=${paragraph}>Hover</p>
 
       <div class=${credits}>
         Icon made by

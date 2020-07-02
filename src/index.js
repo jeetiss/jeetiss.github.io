@@ -7,6 +7,7 @@ GAnalytics('UA-126675501-1')
 const box = document.querySelector('.js-exps')
 
 const experimens = [
+  () => import('./file-icon'),
   () => import('./animation'),
   () => import('./svelte'),
   () => import('./preact'),
@@ -60,7 +61,7 @@ css`
       grid-template-rows: 1fr min-content;
       grid-template-columns: repeat(3, minmax(auto, 400px));
       grid-auto-flow: row dense;
-      grid-gap: 24px;
+      grid-gap: 96px;
 
       justify-content: center;
 
@@ -68,15 +69,17 @@ css`
       color: black;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       body {
         grid-template-columns: repeat(2, minmax(auto, 400px));
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 900px) {
       body {
-        grid-template-columns: minmax(auto, 400px);
+        grid-template-columns: minmax(300px, 500px);
+        grid-gap: 24px;
+        padding: 10px;
       }
     }
 

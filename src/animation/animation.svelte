@@ -43,7 +43,7 @@
     z-index: 1;
   }
 
-  div {
+  div.hidder {
     position: relative;
     overflow: hidden;
 
@@ -53,11 +53,20 @@
     background-color: #eee;
     border-radius: 16px;
   }
+
+  p {
+    color: #aaa;
+    text-align: right;
+  }
 </style>
 
-<div on:mousemove={move} on:mouseenter={enter} on:mouseleave={leave}>
-  <div
-    class="circle"
-    style="opacity: {$opacity}; transform: translate({$coords.x}px, {$coords.y}px) scale({$scale});"
-  />
+<div>
+  <div class="hidder" on:mousemove={move} on:mouseenter={enter} on:mouseleave={leave}>
+    <div
+      class="circle"
+      style="opacity: {$opacity}; transform: translate({$coords.x}px, {$coords.y}px) scale({$scale});"
+    />
+  </div>
+
+  <p>Another hover animation</p>
 </div>

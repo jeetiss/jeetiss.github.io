@@ -30,15 +30,14 @@ export default ({ attributes, files, publicPath }) => {
         />
 
         <h1 style="max-width: 700px;">
-          Привет, я Ивахненко Дмитрий, фронтенд&nbsp;инженер в
-          <a target="_blank" href="https://uploadcare.com/">аплоадкеар</a>
+          Hi 👋🏻, I'm Dmitry Ivakhnenko.
         </h1>
       </main>
 
-      <h2 class="full-width js-exps">Эксперименты</h2>
+      <h2 class="full-width js-exps">Experiments</h2>
 
       <footer class="full-width">
-        <p>Контакты:</p>
+        <p>Contacts</p>
 
         <ul class="reset contacts">
           <li>
