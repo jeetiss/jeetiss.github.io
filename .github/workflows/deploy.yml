@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - dev
-  pull_request:
-    branches:
-      - "*"
 
 jobs:
   build-and-deploy:
@@ -27,6 +24,5 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: master
           FOLDER: dist
-          TARGET_FOLDER: ${{ env.BRANCH_NAME != null && format('{0}-{1}', 'review', env.BRANCH_NAME) }}
           SINGLE_COMMIT: true
           CLEAN: true
