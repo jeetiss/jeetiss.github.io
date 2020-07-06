@@ -16,6 +16,7 @@ class MyElement extends LitElement {
         align-items: center;
 
         height: 100%;
+        min-height: 80px;
       }
 
       :host > * {
