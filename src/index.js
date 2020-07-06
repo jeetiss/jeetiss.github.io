@@ -7,6 +7,7 @@ GAnalytics('UA-126675501-1')
 const box = document.querySelector('.js-exps')
 
 const experimens = [
+  () => import('./lit-element'),
   () => import('./preact'),
   () => import('./svelte'),
   () => import('./file-icon'),

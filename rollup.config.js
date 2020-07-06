@@ -27,6 +27,11 @@ export default {
 
   plugins: [
     html({ template }),
+
+    linaria({
+      sourceMap: isDev
+    }),
+
     babel({
       babelrc: false,
       plugins: [
@@ -53,9 +58,6 @@ export default {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
 
-    linaria({
-      sourceMap: isDev
-    }),
     css({
       output: 'dist/styles.css'
     }),
