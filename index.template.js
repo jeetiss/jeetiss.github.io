@@ -1,12 +1,16 @@
 import { makeHtmlAttributes } from '@rollup/plugin-html'
 
-export default ({ attributes, files, publicPath }) => {
-  const scripts = (files.js || [])
+function getScripts ({ files, attributes, publicPath }) {
+  return (files.js || [])
     .map(({ fileName }) => {
       const attrs = makeHtmlAttributes(attributes.script)
       return `<script src="${publicPath}${fileName}"${attrs}></script>`
     })
     .join('\n')
+}
+
+export const template = ({ attributes, files, publicPath }) => {
+  const scripts = getScripts({ files, attributes, publicPath })
 
   return `
   <!DOCTYPE html>
@@ -52,6 +56,31 @@ export default ({ attributes, files, publicPath }) => {
       </footer>
 
       ${scripts}
+    </body>
+  </html>
+`
+}
+
+export const iframe = ({ attributes, files, publicPath }) => {
+  const scripts = getScripts({ files, attributes, publicPath })
+
+  return `
+  <!DOCTYPE html>
+  <html${makeHtmlAttributes(attributes.html)}>
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta name="theme-color" content="#000000" />
+      <title>-_-</title>
+      <link rel="stylesheet" href="iframe-css.css" />
+    </head>
+
+    <body>
+  
+      ${scripts}  
     </body>
   </html>
 `

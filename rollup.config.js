@@ -10,56 +10,109 @@ import { terser } from 'rollup-plugin-terser'
 import linaria from 'linaria/rollup'
 import css from 'rollup-plugin-css-only'
 
-import template from './index.template'
+import { template, iframe } from './index.template'
 
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-export default {
-  input: 'src/index.js',
+export default [
+  {
+    input: 'src/index.js',
 
-  output: {
-    format: 'esm',
-    dir: 'dist',
-    chunkFileNames: isDev ? '[name].js' : '[hash].js',
-    sourcemap: isDev ? 'inline' : undefined
+    output: {
+      format: 'esm',
+      dir: 'dist',
+      chunkFileNames: isDev ? '[name].js' : '[hash].js',
+      sourcemap: isDev ? 'inline' : undefined
+    },
+
+    plugins: [
+      html({ template, fileName: 'index.html' }),
+      babel({
+        babelrc: false,
+        plugins: [
+          [
+            '@babel/plugin-transform-react-jsx',
+            {
+              pragma: 'h',
+              pragmaFrag: 'Fragment'
+            }
+          ]
+        ]
+      }),
+      svelte({
+        dev: isDev,
+        emitCss: false
+      }),
+      resolve({
+        browser: true,
+        dedupe: ['svelte', 'preact']
+      }),
+      commonjs(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }),
+
+      linaria({
+        sourceMap: isDev
+      }),
+      css({
+        output: 'dist/styles.css'
+      }),
+
+      isDev && serve(),
+      isDev && livereload('dist'),
+
+      isProd && terser()
+    ]
   },
+  {
+    input: 'src/iframe/main.js',
 
-  plugins: [
-    html({ template }),
-    babel({
-      babelrc: false,
-      plugins: [['@babel/plugin-transform-react-jsx', {
-        pragma: 'h',
-        pragmaFrag: 'Fragment'
-      }]]
-    }),
-    svelte({
-      dev: isDev,
-      emitCss: false
-    }),
-    resolve({
-      browser: true,
-      dedupe: ['svelte', 'preact']
-    }),
-    commonjs(),
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    }),
+    output: {
+      format: 'esm',
+      dir: 'dist',
+      chunkFileNames: isDev ? 'fr-[name].js' : '[hash].js',
+      sourcemap: isDev ? 'inline' : undefined
+    },
 
-    linaria({
-      sourceMap: isDev
-    }),
-    css({
-      output: 'dist/styles.css'
-    }),
+    plugins: [
+      html({ template: iframe, fileName: 'iframe.html' }),
+      babel({
+        babelrc: false,
+        plugins: [
+          [
+            '@babel/plugin-transform-react-jsx',
+            {
+              pragma: 'h',
+              pragmaFrag: 'Fragment'
+            }
+          ]
+        ]
+      }),
+      svelte({
+        dev: isDev,
+        emitCss: false
+      }),
+      resolve({
+        browser: true
+      }),
+      commonjs(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }),
 
-    isDev && serve(),
-    isDev && livereload('dist'),
+      linaria({
+        sourceMap: isDev
+      }),
+      css({
+        output: 'dist/iframe-css.css'
+      }),
 
-    isProd && terser()
-  ]
-}
+      isProd && terser()
+    ]
+  }
+]
 
 function serve () {
   let started = false
