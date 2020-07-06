@@ -1,4 +1,4 @@
-import App from './app.svelte'
-import { svelteRoot } from '../svelte-root'
+import sizer from '../size-of-js'
+import { files } from './component'
 
-export default svelteRoot(App)
+export default () => sizer(() => import('./component'), files, 'svelte')

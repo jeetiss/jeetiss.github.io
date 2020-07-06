@@ -6,22 +6,21 @@ const Count = () => {
 
   return (
     <div>
-      <h3>preact</h3>
+      <button onClick={() => set((value) => value - 1)}>dec</button>
 
       <span>{count}</span>
 
-      <div>
-        <button onClick={() => set(value => value + 1)}>inc</button>
-        <button onClick={() => set(value => value - 1)}>dec</button>
-      </div>
+      <button onClick={() => set((value) => value + 1)}>inc</button>
     </div>
   )
 }
 
 export default () => {
-  const root = document.createElement('div')
+  const root = document.createDocumentFragment()
 
   render(<Count />, root)
 
   return root
 }
+
+export const files = [import.meta.url]

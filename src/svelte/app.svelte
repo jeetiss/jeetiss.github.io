@@ -1,21 +1,18 @@
-<script>
-  let name = "world";
+<script context="module">
+  import { getFileUrl } from "../get-url.js";
 
+  export const url = getFileUrl();
+</script>
+
+<script>
+  let count = 0;
   function handleInput(e) {
     name = e.target.value;
   }
 </script>
 
-<style>
-  h3 {
-    color: rebeccapurple;
-  }
-</style>
+<button on:click={() => (count -= 1)}>dec</button>
 
-<main>
-  <h3>svelte</h3>
+<span>{count}</span>
 
-  <div>Hello {name}!</div>
-
-  <input type="text" on:input={handleInput} />
-</main>
+<button on:click={() => (count += 1)}>inc</button>

@@ -5,3 +5,5 @@ export const svelteRoot = (Component) => () => {
 
   return target
 }
+
+export const url = import.meta.url

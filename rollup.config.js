@@ -29,10 +29,16 @@ export default {
     html({ template }),
     babel({
       babelrc: false,
-      plugins: [['@babel/plugin-transform-react-jsx', {
-        pragma: 'h',
-        pragmaFrag: 'Fragment'
-      }]]
+      plugins: [
+        [
+          '@babel/plugin-transform-react-jsx',
+          {
+            pragma: 'h',
+            pragmaFrag: 'Fragment'
+          }
+        ],
+        '@babel/plugin-syntax-import-meta'
+      ]
     }),
     svelte({
       dev: isDev,
