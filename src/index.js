@@ -1,34 +1,57 @@
 import GAnalytics from 'ganalytics'
 import { css } from 'linaria'
-import { insertAfter } from './html'
+import { replaceNode, insertAfter, html } from './html'
 
 GAnalytics('UA-126675501-1')
 
 const box = document.querySelector('.js-exps')
 
 const experimens = [
-  () => import('./lit-element'),
-  () => import('./preact'),
-  () => import('./svelte'),
-  () => import('./file-icon'),
-  () => import('./animation'),
-  () => import('./covid'),
-  () => import('./loader'),
-  () => import('./sockets'),
-  () => import('./link')
+  [() => import('./lit-element'), 120],
+  [() => import('./preact'), 120],
+  [() => import('./svelte'), 120],
+  [() => import('./file-icon'), 170],
+  [() => import('./animation'), 200],
+  [() => import('./covid'), 330],
+  [() => import('./loader'), 150],
+  [() => import('./sockets'), 100],
+  [() => import('./link'), 200]
 ]
 
-experimens.reduce(
-  (promise, moduleCreator) =>
-    promise
-      .then(node => Promise.all([moduleCreator(), node]))
-      .then(([{ default: createModule }, node]) => {
-        const moduleNode = createModule()
-        insertAfter(moduleNode, node)
-        return moduleNode
-      }),
-  Promise.resolve(box)
-)
+const placeholder = (importee, height) => {
+  const node = html`<div style="min-height: ${height}px; height: 100%"></div>`
+
+  const load = () =>
+    importee().then(({ default: createModule }) =>
+      replaceNode(node, createModule())
+    )
+
+  return { node, load }
+}
+
+const phs = experimens.slice(0).reverse().map(args => placeholder(...args))
+
+phs.forEach((placeholder, index) => {
+  placeholder.node.setAttribute('index', index)
+  insertAfter(placeholder.node, box)
+})
+
+var observer = new window.IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const index = entry.target.getAttribute('index')
+      observer.unobserve(phs[index].node)
+
+      setTimeout(() => {
+        phs[index].load()
+      })
+    }
+  })
+})
+
+phs.forEach(placeholder => {
+  observer.observe(placeholder.node)
+})
 
 css`
   :global() {

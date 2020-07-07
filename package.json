@@ -14,7 +14,7 @@
     "linaria": "^1.3.3",
     "lit-element": "^2.3.1",
     "nanoid": "^2.1.11",
-    "preact": "^10.3.4",
+    "preact": "^10.4.5",
     "pretty-bytes": "^5.3.0"
   },
   "devDependencies": {

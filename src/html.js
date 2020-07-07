@@ -20,4 +20,8 @@ function removeNode (node) {
   node.parentNode.removeChild(node)
 }
 
-export { html, insertAfter, removeNode }
+function replaceNode (node, newNode) {
+  node.parentNode.replaceChild(newNode, node)
+}
+
+export { html, insertAfter, removeNode, replaceNode }
