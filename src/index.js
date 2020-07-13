@@ -1,35 +1,36 @@
-// import GAnalytics from 'ganalytics'
 import { css } from 'linaria'
 import { replaceNode, insertAfter, html } from './html'
-
-// GAnalytics('UA-126675501-1')
 
 const box = document.querySelector('.js-exps')
 
 const experimens = [
-  [() => import('./lit-element'), 120],
-  [() => import('./preact'), 120],
-  [() => import('./svelte'), 120],
-  [() => import('./file-icon'), 170],
-  [() => import('./animation'), 200],
-  [() => import('./covid'), 330],
-  [() => import('./loader'), 150],
-  [() => import('./sockets'), 100],
-  [() => import('./link'), 200]
+  [() => import('./lit-element'), 120, 'lit-element counter'],
+  [() => import('./preact'), 120, 'preact counter'],
+  [() => import('./svelte'), 120, 'svelte counter'],
+  [() => import('./file-icon'), 170, 'file icon'],
+  [() => import('./animation'), 200, 'filepond haver animation'],
+  [() => import('./covid'), 330, 'covid chart'],
+  [() => import('./loader'), 150, 'dot loader'],
+  [() => import('./sockets'), 100, 'sockets'],
+  [() => import('./link'), 200, 'link with hover']
 ]
 
-const placeholder = (importee, height) => {
+const placeholder = (importee, height, name) => {
   const node = html`<div style="min-height: ${height}px; height: 100%"></div>`
 
   const load = () =>
-    importee().then(({ default: createModule }) =>
+    importee().then(({ default: createModule }) => {
+      window.splitbee.track('load example', { name })
       replaceNode(node, createModule())
-    )
+    })
 
   return { node, load }
 }
 
-const phs = experimens.slice(0).reverse().map(args => placeholder(...args))
+const phs = experimens
+  .slice(0)
+  .reverse()
+  .map((args) => placeholder(...args))
 
 phs.forEach((placeholder, index) => {
   placeholder.node.setAttribute('index', index)
@@ -49,7 +50,7 @@ var observer = new window.IntersectionObserver((entries) => {
   })
 })
 
-phs.forEach(placeholder => {
+phs.forEach((placeholder) => {
   observer.observe(placeholder.node)
 })
 
