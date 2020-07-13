@@ -1,8 +1,8 @@
-import GAnalytics from 'ganalytics'
+// import GAnalytics from 'ganalytics'
 import { css } from 'linaria'
 import { replaceNode, insertAfter, html } from './html'
 
-GAnalytics('UA-126675501-1')
+// GAnalytics('UA-126675501-1')
 
 const box = document.querySelector('.js-exps')
 

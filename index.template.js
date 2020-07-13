@@ -20,6 +20,7 @@ export default ({ attributes, files, publicPath }) => {
       <meta name="theme-color" content="#000000" />
       <title>-_-</title>
       <link rel="stylesheet" href="styles.css" />
+      <script async src="https://cdn.splitbee.io/sb.js"></script>
     </head>
 
     <body>
