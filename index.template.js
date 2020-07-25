@@ -44,7 +44,7 @@ export default ({ attributes, files, publicPath }) => {
           <li>
             <a target="_blank" href="https://twitter.com/jeetiss">Twitter</a>
           </li>
-          <li><a target="_blank" href="">Telegram</a></li>
+          <li><a target="_blank" href="https://t.me/jeetiss">Telegram</a></li>
           <li>
             <a target="_blank" href="https://github.com/jeetiss">Github</a>
           </li>
