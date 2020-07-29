@@ -1,5 +1,8 @@
 import { css } from 'linaria'
 import { replaceNode, insertAfter, html } from './html'
+import { init, track } from './splitbee'
+
+init()
 
 const box = document.querySelector('.js-exps')
 
@@ -21,7 +24,7 @@ const placeholder = (importee, height, name) => {
   const load = () =>
     importee().then(({ default: createModule }) => {
       replaceNode(node, createModule())
-      window.splitbee.track('load example', { name })
+      track(`load ${name}`)
     })
 
   return { node, load }
@@ -53,13 +56,6 @@ var observer = new window.IntersectionObserver((entries) => {
 phs.forEach((placeholder) => {
   observer.observe(placeholder.node)
 })
-
-setTimeout(() => {
-  [1, 2, 3].forEach((index) => {
-    window.splitbee.track('event', { index })
-    window.splitbee.track(`event ${index}`)
-  })
-}, 3000)
 
 css`
   :global() {
