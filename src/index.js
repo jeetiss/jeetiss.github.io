@@ -7,6 +7,7 @@ init()
 const box = document.querySelector('.js-exps')
 
 const experimens = [
+  [() => import('./resize-observer'), 100, 'size'],
   [() => import('./show-videocard'), 100, 'videocard'],
   [() => import('./lit-element'), 120, 'lit-element counter'],
   [() => import('./preact'), 120, 'preact counter'],
