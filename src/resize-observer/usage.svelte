@@ -1,5 +1,7 @@
 <script>
-  import { element, size } from "./resize";
+  import { createHandler, resize } from "./resize";
+
+  const [size, handler] = createHandler({})
 </script>
 
 <style>
@@ -30,7 +32,7 @@
   }
 </style>
 
-<div bind:this={$element}>
+<div use:resize on:resize={handler}>
   <div class="style">
     <span>{$size.width}x{$size.height}</span>
   </div>
