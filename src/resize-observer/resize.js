@@ -1,22 +1,51 @@
 import { writable } from 'svelte/store'
 
 const resize = (element) => {
-  const observer = new window.ResizeObserver((entries) => {
-    const size = {
-      width: Math.round(entries[0].contentRect.width),
-      height: Math.round(entries[0].contentRect.height)
+  const dispatch = (size) =>
+    element.dispatchEvent(
+      new window.CustomEvent('resize', {
+        detail: { size }
+      })
+    )
+
+  if (typeof window.ResizeObserver !== 'undefined') {
+    const observer = new window.ResizeObserver((entries) => {
+      const size = {
+        width: Math.round(entries[0].contentRect.width),
+        height: Math.round(entries[0].contentRect.height)
+      }
+
+      dispatch(size)
+    })
+
+    observer.observe(element)
+
+    return {
+      destroy () {
+        observer.unobserve(element)
+      }
+    }
+  } else {
+    const sizer = () => {
+      const rect = element.getBoundingClientRect()
+
+      const size = {
+        width: Math.round(rect.width),
+        height: Math.round(rect.height)
+      }
+
+      dispatch(size)
     }
 
-    element.dispatchEvent(new window.CustomEvent('resize', {
-      detail: { size }
-    }))
-  })
+    let id = setTimeout(() => {
+      sizer()
+      id = setInterval(sizer, 2000)
+    }, 10)
 
-  observer.observe(element)
-
-  return {
-    destroy () {
-      observer.unobserve(element)
+    return {
+      destroy () {
+        clearInterval(id)
+      }
     }
   }
 }
