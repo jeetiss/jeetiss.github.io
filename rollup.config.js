@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
+import url from '@rollup/plugin-url'
 import html from '@rollup/plugin-html'
 import babel from 'rollup-plugin-babel'
 import svelte from 'rollup-plugin-svelte'
@@ -45,6 +46,13 @@ export default {
         '@babel/plugin-syntax-import-meta'
       ]
     }),
+
+    url({
+      include: ['**/*.m4a'],
+      limit: 0,
+      destDir: 'dist'
+    }),
+
     svelte({
       dev: isDev,
       emitCss: false
