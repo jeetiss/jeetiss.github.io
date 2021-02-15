@@ -3,10 +3,10 @@
   import { writable, readable, derived } from "svelte/store";
   import { createMachine, assign } from "@xstate/fsm";
   import { useMachine } from "xstate-svelte/dist/fsm";
+  import splitbee from '@splitbee/web'
 
   import { createHandler, resize } from "../resize-observer/resize.js";
   import { generateWave } from "./generate-wave.js";
-  import { track } from "../splitbee.js";
 
   import file from "./hello.m4a";
 
@@ -143,7 +143,7 @@
           duration.set(`${dur.toFixed(2)}%`);
         });
 
-        track("play audio message");
+        splitbee.track("play audio message");
 
         return { ...ctx, source };
       }),

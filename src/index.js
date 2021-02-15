@@ -1,8 +1,8 @@
 import { css } from 'linaria'
 import { replaceNode, insertAfter, html } from './html'
-import { init, track } from './splitbee'
+import splitbee from '@splitbee/web'
 
-init()
+splitbee.init()
 
 const box = document.querySelector('.js-exps')
 
@@ -27,7 +27,7 @@ const placeholder = (importee, height, name) => {
   const load = () =>
     importee().then(({ default: createModule }) => {
       replaceNode(node, createModule())
-      track(`load ${name}`)
+      splitbee.track(`load ${name}`)
     })
 
   return { node, load }

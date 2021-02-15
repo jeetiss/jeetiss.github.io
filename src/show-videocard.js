@@ -1,5 +1,4 @@
 import { html } from './html'
-import { track } from './splitbee'
 
 function getGraphicsInformation (gl) {
   const renderInfo = gl.getExtension('WEBGL_debug_renderer_info')
@@ -31,8 +30,6 @@ export default () => {
       Videocard: ${card}
     </div>
   `
-
-  track(card)
 
   return node
 }
