@@ -48,7 +48,7 @@ export default {
     }),
 
     url({
-      include: ['**/*.m4a'],
+      include: ['**/*.m4a', '**/*.wasm'],
       limit: 0,
       destDir: 'dist'
     }),

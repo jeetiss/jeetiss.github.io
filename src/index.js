@@ -7,6 +7,7 @@ splitbee.init()
 const box = document.querySelector('.js-exps')
 
 const experimens = [
+  [() => import('./crop'), 225, 'crop'],
   [() => import('./audio'), 140, 'audio message'],
   [() => import('./resize-observer'), 48, 'size'],
   [() => import('./show-videocard'), 100, 'videocard'],
