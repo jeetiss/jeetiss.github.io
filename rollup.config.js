@@ -54,7 +54,6 @@ export default {
     }),
 
     svelte({
-      dev: isDev,
       emitCss: false
     }),
     resolve({
