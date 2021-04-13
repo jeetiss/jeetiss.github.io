@@ -11,11 +11,11 @@ const clamp = (min, value, max) => Math.min(max, Math.max(value, min))
 
 const crop = async (imageData, padding = 20) => {
   const { exports } = await asm
-  const { crop, dataId } = exports
-  const { __newArray, __getUint32Array } = exports
+  const { crop, arrayPtr } = exports
+  const { __newArray, __getArray } = exports
 
-  const [top, right, bottom, left] = __getUint32Array(
-    crop(__newArray(dataId, imageData.data), imageData.width, imageData.height)
+  const [top, right, bottom, left] = __getArray(
+    crop(__newArray(arrayPtr, imageData.data), imageData.width, imageData.height)
   )
 
   return {
