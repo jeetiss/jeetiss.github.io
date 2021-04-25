@@ -6,7 +6,7 @@ splitbee.init()
 
 const box = document.querySelector('.js-exps')
 
-const experimens = [
+const experiments = [
   [() => import('./crop'), 225, 'crop'],
   [() => import('./audio'), 140, 'audio message'],
   [() => import('./resize-observer'), 48, 'size'],
@@ -34,7 +34,7 @@ const placeholder = (importee, height, name) => {
   return { node, load }
 }
 
-const phs = experimens
+const phs = experiments
   .slice(0)
   .reverse()
   .map((args) => placeholder(...args))

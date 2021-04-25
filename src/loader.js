@@ -75,9 +75,9 @@ export default () => {
   const node = html`
     <div class=${suaqka}>
       <div class=${bottom}>
-        Лоадер из доклада
+        Loader from
         <a target="_blank" href="https://www.youtube.com/watch?v=3rWwFN2ckh0">
-          Антона Хлыновского
+          subzey's talk
         </a>
       </div>
     </div>
