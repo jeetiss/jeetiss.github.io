@@ -44,7 +44,7 @@ phs.forEach((placeholder, index) => {
   insertAfter(placeholder.node, box)
 })
 
-var observer = new window.IntersectionObserver((entries) => {
+const observer = new window.IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       const index = entry.target.getAttribute('index')
