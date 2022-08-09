@@ -1,9 +1,9 @@
 import { instantiateStreaming } from '@assemblyscript/loader'
-import Draw from 'canvas-free-drawing'
-import { css } from 'linaria'
-import { html } from '../html'
+import module from 'canvas-free-drawing'
+import { css } from 'astroturf'
+import { html } from '../html.js'
 import cropSource from './code.wasm'
-import { holst, size } from './initial'
+import { holst, size } from './initial.js'
 
 const asm = instantiateStreaming(window.fetch(cropSource))
 
@@ -15,7 +15,11 @@ const crop = async (imageData, padding = 20) => {
   const { __newArray, __getArray } = exports
 
   const [top, right, bottom, left] = __getArray(
-    crop(__newArray(arrayPtr, imageData.data), imageData.width, imageData.height)
+    crop(
+      __newArray(arrayPtr, imageData.data),
+      imageData.width,
+      imageData.height
+    )
   )
 
   return {
@@ -26,22 +30,21 @@ const crop = async (imageData, padding = 20) => {
   }
 }
 
+const canvasClass = css`
+  border: 1px solid #e2e2e2;
+  box-shadow: 0px 5px 20px 5px rgb(0 0 0 / 20%);
+`
+
+const rightBlock = css`
+  float: right;
+`
+
 export default function CROP () {
   const node = html`
     <div class="full-width">
-      <canvas
-        id="canvas"
-        class="${css`
-          border: 1px solid #e2e2e2;
-          box-shadow: 0px 5px 20px 5px rgb(0 0 0 / 20%);
-        `}"
-      ></canvas>
+      <canvas id="canvas" class="${canvasClass}"></canvas>
 
-      <div
-        class="${css`
-          float: right;
-        `}"
-      >
+      <div class="${rightBlock}">
         <button>clear</button>
       </div>
     </div>
@@ -50,6 +53,7 @@ export default function CROP () {
   setTimeout(() => {
     const ref = node.querySelector('canvas#canvas')
     const button = node.querySelector('button')
+    const { default: Draw } = module
     const cfd = new Draw({
       elementId: 'canvas',
       width: 1,

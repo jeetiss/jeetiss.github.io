@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit-element'
-import { getFileUrl } from '../get-url'
+import { getFileUrl } from '../get-url.js'
 
 class MyElement extends LitElement {
   static get properties () {

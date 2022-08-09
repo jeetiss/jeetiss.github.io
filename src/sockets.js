@@ -1,7 +1,7 @@
 import nanoid from 'nanoid'
 import { channel } from '@brows/client'
-import { html, removeNode } from './html'
-import { css } from 'linaria'
+import { html, removeNode } from './html.js'
+import { css } from 'astroturf'
 
 const bollContainer = css`
   cursor: pointer;
@@ -28,17 +28,17 @@ const bollContainer = css`
 
     background-color: white;
   }
+`
 
-  & > .name {
-    user-select: none;
+const title = css`
+  user-select: none;
 
-    font-size: 48px;
-    font-weight: 800;
-    color: white;
-    margin: 20px;
+  font-size: 48px;
+  font-weight: 800;
+  color: white;
+  margin: 20px;
 
-    text-transform: uppercase;
-  }
+  text-transform: uppercase;
 `
 
 const bllcss = css`
@@ -85,7 +85,7 @@ export default () => {
   const mid = nanoid()
   const node = html`
     <div class="full-width ${bollContainer}">
-      <h3 class="name">sockets</h3>
+      <h3 class="${title}">sockets</h3>
     </div>
   `
 
@@ -93,14 +93,14 @@ export default () => {
     ws.trigger('click', { id: mid })
   })
 
-  ws.on('click', data => {
+  ws.on('click', (data) => {
     const boll = html`
       <div class=${container}>
         <div class="${bllcss} ${data.id !== mid ? enemy : ''}"></div>
       </div>
     `
 
-    boll.addEventListener('animationend', e => {
+    boll.addEventListener('animationend', (e) => {
       removeNode(e.target)
     })
 

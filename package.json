@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "dev": "rollup -c -w",
-    "start": "sirv dist",
-    "build": "rm -rf ./dist && NODE_ENV=production rollup -c"
+    "dev": "webpack serve",
+    "build": "rm -rf ./dist && NODE_ENV=production webpack"
   },
   "dependencies": {
     "@assemblyscript/loader": "^0.18.24",
@@ -10,10 +9,10 @@
     "@splitbee/web": "^0.2.4",
     "@uploadcare/upload-client": "^1.1.1",
     "@xstate/fsm": "^1.3.0",
+    "astroturf": "^1.0.1",
     "canvas-free-drawing": "^2.1.0",
     "covid-charts": "0.1.3",
     "htm": "^3.0.3",
-    "linaria": "^1.3.3",
     "lit-element": "^2.3.1",
     "nanoid": "^2.1.11",
     "preact": "^10.4.5",
@@ -21,13 +20,12 @@
     "xstate-svelte": "^1.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.10",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-html": "^0.1.1",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "@rollup/plugin-replace": "^2.3.1",
-    "@rollup/plugin-url": "^5.0.1",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
     "eslint": "^8.21.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-config-standard-jsx": "^11.0.0",
@@ -36,14 +34,14 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-standard": "^5.0.0",
-    "rollup": "^2.45.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-css-only": "^2.0.0",
-    "rollup-plugin-livereload": "^1.3.0",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^5.3.0",
-    "sirv-cli": "^1.0.3",
-    "svelte": "^3.20.1"
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "style-loader": "^3.3.1",
+    "svelte": "^3.49.0",
+    "svelte-loader": "^3.1.3",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
   },
   "private": true,
   "type": "module"

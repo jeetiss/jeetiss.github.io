@@ -1,4 +1,4 @@
-import { html } from './html'
+import { html } from './html.js'
 
 function getGraphicsInformation (gl) {
   const renderInfo = gl.getExtension('WEBGL_debug_renderer_info')

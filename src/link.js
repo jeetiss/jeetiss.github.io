@@ -1,5 +1,5 @@
-import { html } from './html'
-import { css } from 'linaria'
+import { html } from './html.js'
+import { css } from 'astroturf'
 
 const example = css`
   min-height: 200px;
@@ -128,10 +128,10 @@ const svg = css`
 
 export default () => {
   const node = html`
-    <div class=${example}>
-      <p class=${paragraph}>Hover</p>
+    <div class="${example}">
+      <p class="${paragraph}">Hover</p>
 
-      <div class=${credits}>
+      <div class="${credits}">
         Icon made by
         <a
           target="_blank"
@@ -142,10 +142,10 @@ export default () => {
         </a>
       </div>
 
-      <div class=${cursor}>
-        <div class=${animateY}>
+      <div class="${cursor}">
+        <div class="${animateY}">
           <svg
-            class=${svg}
+            class="${svg}"
             xmlns="http://www.w3.org/2000/svg"
             width="20px"
             height="20px"
@@ -160,14 +160,20 @@ export default () => {
     </div>
   `
 
+  const classToSelector = (className) =>
+    className
+      .split(' ')
+      .map((name) => `.${name}`)
+      .join('')
+
   const animatedElements = [
-    node.querySelector(`div.${cursor}`),
-    node.querySelector(`div.${cursor} > .${animateY}`),
-    node.querySelector(`.${paragraph}`)
+    node.querySelector(`div${classToSelector(cursor)}`),
+    node.querySelector(`div${classToSelector(cursor)} > ${classToSelector(animateY)}`),
+    node.querySelector(`${classToSelector(paragraph)}`)
   ]
 
   node.addEventListener('mouseenter', () => {
-    animatedElements.forEach(element => {
+    animatedElements.forEach((element) => {
       element.style.animationName = 'none'
     })
 
@@ -175,7 +181,7 @@ export default () => {
   })
 
   node.addEventListener('mouseleave', () => {
-    animatedElements.forEach(element => {
+    animatedElements.forEach((element) => {
       element.style.animationName = ''
     })
 

@@ -1,4 +1,7 @@
-import { h, render } from 'preact'
+/** @jsx Preact.h */
+/** @jsxFrag Preact.Fragment */
+
+import * as Preact from 'preact'
 import { useState } from 'preact/hooks'
 
 const Count = () => {
@@ -18,7 +21,8 @@ const Count = () => {
 export default () => {
   const root = document.createDocumentFragment()
 
-  render(<Count />, root)
+  // eslint-disable-next-line react/no-deprecated
+  Preact.render(<Count />, root)
 
   return root
 }

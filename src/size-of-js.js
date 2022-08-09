@@ -1,6 +1,6 @@
 import prettyBytes from 'pretty-bytes'
-import { html } from './html'
-import { css } from 'linaria'
+import { html } from './html.js'
+import { css } from 'astroturf'
 
 const { fetch } = window
 

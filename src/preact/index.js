@@ -1,4 +1,4 @@
-import sizer from '../size-of-js'
-import { files } from './component'
+import sizer from '../size-of-js.js'
+import { files } from './component.js'
 
-export default () => sizer(() => import('./component'), files, 'preact')
+export default () => sizer(() => import('./component.js'), files, 'preact')
