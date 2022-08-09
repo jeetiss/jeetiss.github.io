@@ -1,8 +1,5 @@
-import prettyBytes from 'pretty-bytes'
 import { html } from './html.js'
 import { css } from 'astroturf'
-
-const { fetch } = window
 
 const sizer = css`
   & {
@@ -47,20 +44,7 @@ const titleStyle = css`
   font-size: 24px;
 `
 
-const uniq = (arr) => [...new Set(arr)]
-
-const fetchFile = (names) =>
-  Promise.all(
-    uniq(names).map((name) =>
-      fetch(name)
-        .then((response) => response.blob())
-        .then((blob) => blob.size)
-    )
-  )
-    .then((sizes) => sizes.reduce((sum, next) => sum + next, 0))
-    .then((size) => prettyBytes(size))
-
-export default (importer, files, name) => {
+export default (importer, name) => {
   const node = html`<div class="${sizer}">
     <div class="${info}">
       <span>framework</span>
@@ -69,21 +53,12 @@ export default (importer, files, name) => {
 
     <div class="${titleStyle}">
       <span class="${nameStyle}">${name}</span>
-      <span class="js-size"></span>
+      <span class="js-size">🤷🏻‍♂️</span>
     </div>
   </div>`
 
-  const sizeel = node.querySelector('.js-size')
-  const contentel = node
-
-  fetchFile(files).then((size) => {
-    sizeel.textContent = size
-  }).catch(() => {
-    sizeel.textContent = '🤷🏻‍♂️'
-  })
-
   importer().then(({ default: createModule }) => {
-    contentel.append(createModule())
+    node.append(createModule())
   })
 
   return node

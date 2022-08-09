@@ -1,5 +1,4 @@
 import { LitElement, css, html } from 'lit-element'
-import { getFileUrl } from '../get-url.js'
 
 class MyElement extends LitElement {
   static get properties () {
@@ -54,5 +53,3 @@ class MyElement extends LitElement {
 window.customElements.define('my-element', MyElement)
 
 export default () => document.createElement('my-element')
-
-export const files = [getFileUrl()]

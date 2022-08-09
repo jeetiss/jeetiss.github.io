@@ -1,9 +1,3 @@
-<script context="module">
-  import { getFileUrl } from "../get-url.js";
-
-  export const url = getFileUrl();
-</script>
-
 <script>
   let count = 0;
   function handleInput(e) {
