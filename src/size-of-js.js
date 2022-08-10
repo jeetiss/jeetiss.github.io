@@ -1,5 +1,7 @@
-import { html } from './html.js'
+import prettyBytes from 'pretty-bytes'
 import { css } from 'astroturf'
+
+import { html } from './html.js'
 
 const sizer = css`
   & {
@@ -44,7 +46,13 @@ const titleStyle = css`
   font-size: 24px;
 `
 
-export default (importer, name) => {
+const fetchFile = (name) =>
+  fetch(name)
+    .then((response) => response.blob())
+    .then((blob) => blob.size)
+    .then((size) => prettyBytes(size))
+
+export default (importer, bundle, name) => {
   const node = html`<div class="${sizer}">
     <div class="${info}">
       <span>framework</span>
@@ -53,9 +61,19 @@ export default (importer, name) => {
 
     <div class="${titleStyle}">
       <span class="${nameStyle}">${name}</span>
-      <span class="js-size">🤷🏻‍♂️</span>
+      <span class="js-size"></span>
     </div>
   </div>`
+
+  const sizeel = node.querySelector('.js-size')
+
+  fetchFile(bundle)
+    .then((size) => {
+      sizeel.textContent = size
+    })
+    .catch(() => {
+      sizeel.textContent = '🤷🏻‍♂️'
+    })
 
   importer().then(({ default: createModule }) => {
     node.append(createModule())
