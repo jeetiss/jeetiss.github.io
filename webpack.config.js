@@ -14,10 +14,16 @@ const isProd = process.env.NODE_ENV === 'production'
 
 export default {
   mode: isProd ? 'production' : 'development',
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+
+    'bundled-preact': './src/preact/component.js',
+    'bundled-lit-element': './src/lit-element/component.js',
+    'bundled-svelte': './src/svelte/component.js'
+  },
 
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
 
@@ -87,7 +93,13 @@ export default {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
+      scriptLoading: 'module',
+      excludeChunks: [
+        'bundled-preact',
+        'bundled-lit-element',
+        'bundled-svelte'
+      ]
     }),
     new MiniCssExtractPlugin(),
     new VanillaExtractPlugin()
