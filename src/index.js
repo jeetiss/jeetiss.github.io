@@ -1,6 +1,8 @@
 import { stylesheet } from 'astroturf'
-import { replaceNode, insertAfter, html } from './html.js'
 import splitbee from '@splitbee/web'
+import { replaceNode, insertAfter, html } from './html.js'
+
+import './index.css.js'
 
 splitbee.init()
 
@@ -76,15 +78,6 @@ stylesheet`
   html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
-  }
-
-  body {
-    margin: 0;
-  }
-
-  body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   }
 
   body {
