@@ -9,6 +9,7 @@ splitbee.init()
 const box = document.querySelector('.js-exps')
 
 const experiments = [
+  [() => import('./noise.js'), 140, 'noise'],
   [() => import('./crop/index.js'), 225, 'crop'],
   [() => import('./audio/index.js'), 140, 'audio message'],
   [() => import('./resize-observer/index.js'), 48, 'size'],
