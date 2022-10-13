@@ -34,6 +34,8 @@ const makeNoise = (canvas) => {
   resize()
   window.addEventListener('resize', resize)
 
+  let rafId = null
+
   const draw = () => {
     if (canvas.width !== size[0] || canvas.height !== size[1]) {
       canvas.width = size[0]
@@ -56,10 +58,25 @@ const makeNoise = (canvas) => {
       ctx.putImageData(pixels, 0, bufferHeight * i)
     }
 
-    window.requestAnimationFrame(draw)
+    rafId = window.requestAnimationFrame(draw)
   }
 
-  window.requestAnimationFrame(draw)
+  const play = () => {
+    if (rafId) return
+    rafId = window.requestAnimationFrame(draw)
+  }
+
+  const stop = () => {
+    window.cancelAnimationFrame(rafId)
+    rafId = null
+  }
+
+  play()
+
+  return {
+    stop,
+    play
+  }
 }
 
 export default () => {
@@ -73,8 +90,11 @@ export default () => {
   const canvas = node.querySelector('canvas')
 
   setTimeout(() => {
-    makeNoise(canvas)
-  })
+    const { stop, play } = makeNoise(canvas)
+
+    node.addEventListener('mouseenter', () => stop())
+    node.addEventListener('mouseleave', () => play())
+  }, 10)
 
   return node
 }
