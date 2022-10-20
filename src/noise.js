@@ -94,7 +94,7 @@ export default () => {
 
     node.addEventListener('mouseenter', () => stop())
     node.addEventListener('mouseleave', () => play())
-  }, 10)
+  }, 100)
 
   return node
 }

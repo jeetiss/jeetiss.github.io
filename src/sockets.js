@@ -107,5 +107,7 @@ export default () => {
     node.appendChild(boll)
   })
 
+  ws.trigger('click', { id: mid })
+
   return node
 }
