@@ -1,5 +1,5 @@
-import { html } from './html.js'
-import { css } from 'astroturf'
+import { html } from "./html.js";
+import { css } from "astroturf";
 
 const spcss = css`
   display: flex;
@@ -7,7 +7,7 @@ const spcss = css`
   justify-content: center;
 
   height: 100%;
-`
+`;
 
 const dot = css`
   display: inline-block;
@@ -45,7 +45,7 @@ const dot = css`
       transform: scale(1);
     }
   }
-`
+`;
 
 const suaqka = css`
   position: relative;
@@ -53,7 +53,7 @@ const suaqka = css`
 
   min-height: 150px;
   height: 100%;
-`
+`;
 
 const bottom = css`
   position: absolute;
@@ -61,7 +61,7 @@ const bottom = css`
   bottom: 10px;
 
   text-align: right;
-`
+`;
 
 const spinner = () => html`
   <div class=${spcss}>
@@ -69,7 +69,7 @@ const spinner = () => html`
     <span class=${dot}></span>
     <span class=${dot}></span>
   </div>
-`
+`;
 
 export default () => {
   const node = html`
@@ -81,9 +81,9 @@ export default () => {
         </a>
       </div>
     </div>
-  `
+  `;
 
-  node.appendChild(spinner())
+  node.appendChild(spinner());
 
-  return node
-}
+  return node;
+};

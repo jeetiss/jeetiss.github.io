@@ -1,68 +1,69 @@
-import { stylesheet } from 'astroturf'
-import splitbee from '@splitbee/web'
-import { replaceNode, insertAfter, html } from './html.js'
+import { stylesheet } from "astroturf";
+import splitbee from "@splitbee/web";
+import { replaceNode, insertAfter, html } from "./html.js";
 
-import './index.css.js'
+import "./index.css.js";
 
-splitbee.init()
+splitbee.init();
 
-const box = document.querySelector('.js-exps')
+const box = document.querySelector(".js-exps");
 
 const experiments = [
-  [() => import('./noise.js'), 140, 'noise'],
-  [() => import('./crop/index.js'), 225, 'crop'],
-  [() => import('./audio/index.js'), 140, 'audio message'],
-  [() => import('./resize-observer/index.js'), 48, 'size'],
-  [() => import('./show-videocard.js'), 100, 'videocard'],
-  [() => import('./lit-element/index.js'), 120, 'lit-element counter'],
-  [() => import('./preact/index.js'), 120, 'preact counter'],
-  [() => import('./svelte/index.js'), 120, 'svelte counter'],
-  [() => import('./file-icon.js'), 170, 'file icon'],
-  [() => import('./animation/index.js'), 200, 'filepond haver animation'],
-  [() => import('./covid.js'), 330, 'covid chart'],
-  [() => import('./loader.js'), 150, 'dot loader'],
-  [() => import('./sockets.js'), 100, 'sockets'],
-  [() => import('./link.js'), 200, 'link with hover']
-]
+  [() => import("./leader.js"), 140, "leader"],
+  [() => import("./noise.js"), 140, "noise"],
+  [() => import("./crop/index.js"), 225, "crop"],
+  [() => import("./audio/index.js"), 140, "audio message"],
+  [() => import("./resize-observer/index.js"), 48, "size"],
+  [() => import("./show-videocard.js"), 100, "videocard"],
+  [() => import("./lit-element/index.js"), 120, "lit-element counter"],
+  [() => import("./preact/index.js"), 120, "preact counter"],
+  [() => import("./svelte/index.js"), 120, "svelte counter"],
+  [() => import("./file-icon.js"), 170, "file icon"],
+  [() => import("./animation/index.js"), 200, "filepond haver animation"],
+  [() => import("./covid.js"), 330, "covid chart"],
+  [() => import("./loader.js"), 150, "dot loader"],
+  [() => import("./sockets.js"), 100, "sockets"],
+  [() => import("./link.js"), 200, "link with hover"],
+];
 
 const placeholder = (importee, height, name) => {
-  const node = html`<div style="min-height: ${height}px; height: 100%"></div>`
+  const node = html`<div style="min-height: ${height}px; height: 100%"></div>`;
 
   const load = () =>
     importee().then(({ default: createModule }) => {
-      replaceNode(node, createModule())
-      splitbee.track(`load ${name}`)
-    })
+      replaceNode(node, createModule());
+      splitbee.track(`load ${name}`);
+    });
 
-  return { node, load }
-}
+  return { node, load };
+};
 
 const phs = experiments
   .slice(0)
   .reverse()
-  .map((args) => placeholder(...args))
+  .map((args) => placeholder(...args));
 
 phs.forEach((placeholder, index) => {
-  placeholder.node.setAttribute('index', index)
-  insertAfter(placeholder.node, box)
-})
+  placeholder.node.setAttribute("index", index);
+  insertAfter(placeholder.node, box);
+});
 
 const observer = new window.IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      const index = entry.target.getAttribute('index')
-      observer.unobserve(phs[index].node)
+      const index = entry.target.getAttribute("index");
+      observer.unobserve(phs[index].node);
 
       setTimeout(() => {
-        phs[index].load()
-      })
+        phs[index].load();
+      });
     }
-  })
-})
+  });
+});
 
 phs.forEach((placeholder) => {
-  observer.observe(placeholder.node)
-})
+  observer.observe(placeholder.node);
+});
 
 stylesheet`
   *,
@@ -167,4 +168,4 @@ stylesheet`
 
     margin: 42px 0;
   }
-`
+`;

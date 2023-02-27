@@ -1,5 +1,5 @@
-import { html } from './html.js'
-import { css } from 'astroturf'
+import { html } from "./html.js";
+import { css } from "astroturf";
 
 const example = css`
   min-height: 200px;
@@ -9,7 +9,7 @@ const example = css`
   position: relative;
 
   overflow: hidden;
-`
+`;
 
 const paragraph = css`
   font-size: 48px;
@@ -56,7 +56,7 @@ const paragraph = css`
     box-shadow: 0 0 0 4px var(--base-hover);
     cursor: default;
   }
-`
+`;
 
 const credits = css`
   position: absolute;
@@ -67,7 +67,7 @@ const credits = css`
   text-align: right;
 
   color: #aaa;
-`
+`;
 
 const cursor = css`
   position: absolute;
@@ -93,7 +93,7 @@ const cursor = css`
       transform: translateX(50%);
     }
   }
-`
+`;
 
 const animateY = css`
   width: 100%;
@@ -119,12 +119,12 @@ const animateY = css`
       transform: translateY(-90%);
     }
   }
-`
+`;
 
 const svg = css`
   stroke: white;
   stroke-width: 25px;
-`
+`;
 
 export default () => {
   const node = html`
@@ -158,35 +158,37 @@ export default () => {
         </div>
       </div>
     </div>
-  `
+  `;
 
   const classToSelector = (className) =>
     className
-      .split(' ')
+      .split(" ")
       .map((name) => `.${name}`)
-      .join('')
+      .join("");
 
   const animatedElements = [
     node.querySelector(`div${classToSelector(cursor)}`),
-    node.querySelector(`div${classToSelector(cursor)} > ${classToSelector(animateY)}`),
-    node.querySelector(`${classToSelector(paragraph)}`)
-  ]
+    node.querySelector(
+      `div${classToSelector(cursor)} > ${classToSelector(animateY)}`
+    ),
+    node.querySelector(`${classToSelector(paragraph)}`),
+  ];
 
-  node.addEventListener('mouseenter', () => {
+  node.addEventListener("mouseenter", () => {
     animatedElements.forEach((element) => {
-      element.style.animationName = 'none'
-    })
+      element.style.animationName = "none";
+    });
 
-    animatedElements[0].style.display = 'none'
-  })
+    animatedElements[0].style.display = "none";
+  });
 
-  node.addEventListener('mouseleave', () => {
+  node.addEventListener("mouseleave", () => {
     animatedElements.forEach((element) => {
-      element.style.animationName = ''
-    })
+      element.style.animationName = "";
+    });
 
-    animatedElements[0].style.display = 'block'
-  })
+    animatedElements[0].style.display = "block";
+  });
 
-  return node
-}
+  return node;
+};
