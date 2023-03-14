@@ -13,7 +13,7 @@
     "@vanilla-extract/css": "^1.7.2",
     "@vanilla-extract/webpack-plugin": "^2.1.11",
     "@xstate/fsm": "^1.3.0",
-    "astroturf": "^1.0.1",
+    "astroturf": "^1.1.0",
     "canvas-free-drawing": "^2.1.0",
     "covid-charts": "0.1.3",
     "htm": "^3.0.3",

@@ -79,18 +79,50 @@ const config = {
 
 const voter = css`
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 2px;
-  width: 95px;
+  width: 110px;
+  cursor: default;
+
+  color: white;
 
   background-color: var(--background-color);
   border-radius: 20px;
   padding: 5px;
+
+  & > span {
+    font-family: monospace;
+    padding: 2px 6px;
+    flex: 1 1;
+  }
+
+  & > button {
+    border: none;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & > button:hover {
+    cursor: pointer;
+  }
+
+  & > button > span {
+    display: block;
+    color: var(--background-color);
+    font-weight: 900;
+    font-size: 15px;
+    transform: rotate(45deg);
+  }
 `;
 
 const createVoter = () => {
   const node = html`<div class="${voter} js-voter">
-    <span class="js-state">initial</span><button>X</button>
+    <span class="js-state">initial</span><button><span>+</span></button>
   </div>`;
   const voterElement = node;
   const stateElement = node.querySelector(".js-state");
@@ -126,10 +158,10 @@ const createVoter = () => {
       (() => {
         switch (state.value) {
           case "leader":
-            return "#f288ed";
+            return "hsl(0deg 16% 45%)";
 
           case "follower":
-            return "#a7efa7";
+            return "hsl(120deg 16% 45%)";
 
           default:
             return "#e2e2e2";
