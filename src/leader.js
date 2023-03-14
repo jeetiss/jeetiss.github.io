@@ -117,6 +117,7 @@ const voter = css`
     font-weight: 900;
     font-size: 15px;
     transform: rotate(45deg);
+    user-select: none;
   }
 `;
 
@@ -191,16 +192,30 @@ const voters = css`
   flex-wrap: wrap;
   gap: 10px;
   align-content: flex-start;
-  height: 100%;
+  min-height: 110px;
 `;
 
 const block = css`
   width: 100%;
   min-height: 100px;
+
+  & > p {
+    max-width: 600px;
+  }
+
+  & > button {
+    margin-top: 8px;
+  }
 `;
 
 export default () => {
   const node = html`<div class="full-width ${block}">
+    <h2>Election algorithm</h2>
+    <p>
+      Each block is a client that can be leader or follower, the leader can be
+      only one, and communication happens via BroadcastChannel.
+    </p>
+
     <div class="${voters} js-voters"></div>
     <button>add</button>
   </div>`;
