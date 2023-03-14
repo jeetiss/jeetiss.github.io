@@ -210,7 +210,7 @@ const block = css`
 
 export default () => {
   const node = html`<div class="full-width ${block}">
-    <h2>Election algorithm</h2>
+    <h2>Leader election algorithm</h2>
     <p>
       Each block is a client that can be leader or follower, the leader can be
       only one, and communication happens via BroadcastChannel.
