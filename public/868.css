@@ -1,0 +1,127 @@
+.e5ic2WpKCKf8qFBTeSS_ { /*!*/ }
+.A1EvH63lrNvFfRDb6WZj {
+
+min-height: 200px;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+
+overflow: hidden;
+}
+.jJy9k4uruAx14RM9gtyO { /*!*/ }
+.srS1BgtfpHN3p4BUmJ0h {
+
+font-size: 48px;
+
+--base-hover: rgb(233, 235, 255);
+color: inherit;
+
+border-radius: 1px;
+text-decoration: none;
+background-image: linear-gradient(currentColor, currentColor);
+background-repeat: no-repeat;
+background-position: center bottom 1%;
+background-origin: initial;
+background-size: 100% 1px;
+outline: none;
+
+transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+animation: py_WqrXLjxQqtuPnLmOF 4s ease infinite;
+}
+@keyframes py_WqrXLjxQqtuPnLmOF {
+from,
+30% {
+background-color: transparent;
+box-shadow: none;
+}
+
+35%,
+70% {
+background-color: var(--base-hover);
+box-shadow: 0 0 0 4px var(--base-hover);
+}
+
+75%,
+to {
+background-color: transparent;
+box-shadow: none;
+}
+}
+.srS1BgtfpHN3p4BUmJ0h:hover {
+color: black;
+background-color: var(--base-hover);
+box-shadow: 0 0 0 4px var(--base-hover);
+cursor: default;
+}
+.dND3UHxnMVXSqJx88QVR { /*!*/ }
+.zu99p_UEhyzetJOGGdJg {
+
+position: absolute;
+
+bottom: 10px;
+right: 10px;
+
+text-align: right;
+
+color: #aaa;
+}
+.l519Y5J_jicCTnI8vIia { /*!*/ }
+.eVYJNAl0DQr812BO7wRy {
+
+position: absolute;
+
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+
+animation: Q5wbfyrQgWwmkzQVyg8g 4s ease-in-out infinite;
+}
+@keyframes Q5wbfyrQgWwmkzQVyg8g {
+from {
+transform: translateX(-50%);
+}
+
+35%,
+65% {
+transform: translateX(0);
+}
+
+to {
+transform: translateX(50%);
+}
+}
+.J7hCs9EBVrTPEyKJ330X { /*!*/ }
+.fCtHSRHHhgdZ9o4Iyjaw {
+
+width: 100%;
+height: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+animation: bUGWRrqit3_bw1ACePjB 4s ease infinite;
+}
+@keyframes bUGWRrqit3_bw1ACePjB {
+from {
+transform: translateY(90%);
+}
+
+35%,
+65% {
+transform: translateY(25px);
+}
+
+to {
+transform: translateY(-90%);
+}
+}
+.yq3uPIBBzhShq7kGw10k { /*!*/ }
+.hZFTzEtnE6JjCbhKGQbR {
+
+stroke: white;
+stroke-width: 25px;
+}

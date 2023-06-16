@@ -1,0 +1,6 @@
+"use strict";(self.webpackChunklol=self.webpackChunklol||[]).push([[575],{4575:(e,t,a)=>{a.r(t),a.d(t,{default:()=>s});var n=a(3744);const i=window.devicePixelRatio||1,s=()=>{const e=n.dy`
+    <div class="${"PoNLzl6ajgC40TkQm8Rl r4YZC5CWRHBlzhSxFGgN"}">
+      <canvas class="${"J2iNAZYNvTspGQgs43JA eaPdLZuFMf6qirCb5fgW"}" style="transform: scale(${1/i})"></canvas>
+      <div class="${"qF6K9l_ZvNPBQrmo38G_ U83WFMVJmrJM4Me2XgQw"}">NOISE</div>
+    </div>
+  `,t=e.querySelector("canvas");return setTimeout((()=>{const{stop:a,play:n}=(e=>{const t=e.getContext("2d"),a=e.parentNode;let n;const s=()=>{n=[a.clientWidth*i,a.clientHeight*i]};s(),window.addEventListener("resize",s);let l=null;const o=()=>{e.width===n[0]&&e.height===n[1]||(e.width=n[0],e.height=n[1]);const a=Math.trunc(65535/8/e.width),i=Math.trunc(e.height/a)+1,s=t.createImageData(e.width,a),r=new Uint8Array(e.width*a);for(let e=0;e<i;e++){window.crypto.getRandomValues(r);for(let e=0;e<s.data.length;e+=4)s.data[e+3]=.6*r[e>>2]/255*255;t.putImageData(s,0,a*e)}l=window.requestAnimationFrame(o)},r=()=>{l||(l=window.requestAnimationFrame(o))};return r(),{stop:()=>{window.cancelAnimationFrame(l),l=null},play:r}})(t);e.addEventListener("mouseenter",(()=>a())),e.addEventListener("mouseleave",(()=>n()))}),100),e}}}]);
