@@ -24,7 +24,7 @@ export default {
 
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'public')
   },
 
   devServer: {
@@ -92,15 +92,6 @@ export default {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      scriptLoading: 'module',
-      excludeChunks: [
-        'bundled-preact',
-        'bundled-lit-element',
-        'bundled-svelte'
-      ]
-    }),
     new MiniCssExtractPlugin(),
     new VanillaExtractPlugin()
   ]
