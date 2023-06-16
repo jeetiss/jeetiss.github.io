@@ -1,10 +1,7 @@
 import { stylesheet } from "astroturf";
-import splitbee from "@splitbee/web";
 import { replaceNode, insertAfter, html } from "./html.js";
 
 import "./index.css.js";
-
-splitbee.init();
 
 const box = document.querySelector(".js-exps");
 
@@ -32,7 +29,6 @@ const placeholder = (importee, height, name) => {
   const load = () =>
     importee().then(({ default: createModule }) => {
       replaceNode(node, createModule());
-      splitbee.track(`load ${name}`);
     });
 
   return { node, load };

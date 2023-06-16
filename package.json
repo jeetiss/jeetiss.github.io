@@ -7,8 +7,6 @@
   "dependencies": {
     "@assemblyscript/loader": "^0.18.24",
     "@brows/client": "0.0.2",
-    "@splitbee/web": "^0.2.4",
-    "@uploadcare/upload-client": "^1.1.1",
     "@vanilla-extract/babel-plugin": "^1.1.7",
     "@vanilla-extract/css": "^1.7.2",
     "@vanilla-extract/webpack-plugin": "^2.1.11",

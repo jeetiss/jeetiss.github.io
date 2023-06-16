@@ -1,9 +1,8 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import { writable, readable, derived } from "svelte/store";
+  import { onMount } from "svelte";
+  import { writable, readable  } from "svelte/store";
   import { createMachine, assign } from "@xstate/fsm";
   import { useMachine } from "xstate-svelte/dist/fsm";
-  import splitbee from '@splitbee/web'
 
   import { createHandler, resize } from "../resize-observer/resize.js";
   import { generateWave } from "./generate-wave.js";
@@ -102,8 +101,6 @@
           .then(buffer => decodeAudioData(buffer))
           .then(audioBuffer => ({ audioBuffer }))
           .then(({ audioBuffer }) => {
-            console.log(audioBuffer);
-
             size.subscribe(({ width, height }) => {
               if (width && height) {
                 wave = generateWave(audioBuffer, {
@@ -142,8 +139,6 @@
 
           duration.set(`${dur.toFixed(2)}%`);
         });
-
-        splitbee.track("play audio message");
 
         return { ...ctx, source };
       }),
