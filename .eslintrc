@@ -1,8 +1,0 @@
-{
-  "extends": ["standard", "standard-jsx", "prettier/standard"],
-  "settings": {
-    "react": {
-      "pragma": "h"
-    }
-  }
-}
