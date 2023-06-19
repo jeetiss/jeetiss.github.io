@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Script from "next/script";
 
 export default function Page() {
@@ -16,6 +17,9 @@ export default function Page() {
         <p>Contacts</p>
 
         <ul className="reset contacts">
+          <li>
+            <Link href="/mpts">make package tree shakable</Link>
+          </li>
           <li>
             <a target="_blank" href="https://twitter.com/jeetiss">
               Twitter
