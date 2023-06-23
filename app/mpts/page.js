@@ -1,4 +1,4 @@
-import { Webcontainer, Folder, File } from "@/components/webcontainer";
+import { Webcontainer, Folder, File, Command } from "@/components/webcontainer";
 import { ClientSuspense } from "@/components/client-only";
 
 export default function Page() {
@@ -11,9 +11,10 @@ export default function Page() {
             name="package.json"
             value={JSON.stringify({
               name: "library",
-              scripts: { run: "node index.js" },
+              scripts: { dev: "node index.js" },
             })}
           />
+          <Command run="npm run dev" />
         </Folder>
       </Webcontainer>
     </ClientSuspense>
