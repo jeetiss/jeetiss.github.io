@@ -6,11 +6,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^13.4.6",
+    "@webcontainer/api": "^1.1.5",
+    "next": "^13.4.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "suspense": "^0.0.39"
   },
-  "devDependencies": {},
   "private": true,
   "type": "module"
 }

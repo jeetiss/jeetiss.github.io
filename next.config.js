@@ -8,6 +8,9 @@ const getHeadersForSharedMemory = (source) => ({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   headers: () => [getHeadersForSharedMemory("/:path*")],
 };
 
