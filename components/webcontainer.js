@@ -89,12 +89,29 @@ const File = ({ name, value }) => {
   );
 };
 
+const createCommands = (commands, onExit) => {
+  let index = 0;
+  return new ReadableStream({
+    pull(controller) {
+      const command = commands[index++];
+      if (command) {
+        console.log(command);
+        controller.enqueue(command);
+      } else {
+        controller.close();
+        // onExit();
+      }
+    },
+  });
+};
+
 const commandCache = createCache({
   getKey: ([, currentPath, run]) => `${currentPath} -> ${run}`,
   load: async ([container, currentPath, run]) => {
-    const spawn = async (command, options) => {
-      const process = await container.spawn(command, options);
+    const spawn = async (command) => {
+      const process = await container.spawn("jsh");
       let chunks = [];
+
       process.output.pipeTo(
         new WritableStream({
           write(data) {
@@ -104,23 +121,37 @@ const commandCache = createCache({
         })
       );
 
-      await process.exit;
+      // createCommands(
+      //   [
+      //     `cd ${currentPath}\n`,
+      //     "ls -l\n",
+      //     `${command}\n`,
+      //     "cd ../\n",
+      //     "ls -l\n",
+      //   ],
+      //   () => process.kill()
+      // ).pipeTo();
 
-      new ReadableStream({
-        read() {},
-      }).pipeTo(process.input);
+      await new Promise((resolve) => setTimeout(() => resolve(), 2000));
 
-      await process.exit;
+      console.log("wtf");
+
+      const input = process.input.getWriter();
+
+      await input.write(`cd ${currentPath};\n echo "_1_2_3_4_5_6_"`);
+
+      console.log("hehe");
+
+      // await process.exit;
+
+      // console.log("- 1 hehe 1 -");
 
       return chunks.join("\n");
     };
 
-    const [command, ...options] = run.split(" ");
+    const result = await spawn(run);
 
-    const pathOutput = await spawn("cd", [currentPath]);
-    const result = await spawn(command, options);
-
-    return [pathOutput, result].join("\n");
+    return result;
   },
 });
 
