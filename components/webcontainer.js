@@ -20,6 +20,7 @@
 import { useEffect, useState, createContext, useContext } from "react";
 import { WebContainer } from "@webcontainer/api";
 import { createSingleEntryCache, createCache } from "suspense";
+import { parse } from "ansicolor";
 
 const workdirName = "root";
 
@@ -51,10 +52,6 @@ const useContainer = () => useContext(Container);
 
 const Webcontainer = ({ children }) => {
   const container = containerCache.read();
-  useEffect(() => {
-    console.log(container);
-    window.container = container;
-  }, []);
   return <Container.Provider value={container}>{children}</Container.Provider>;
 };
 
@@ -84,74 +81,91 @@ const File = ({ name, value }) => {
 
   return (
     <div>
-      {name} — {value}
+      {name} — <pre style={{ display: "inline" }}>{value}</pre>
     </div>
   );
 };
 
-const createCommands = (commands, onExit) => {
-  let index = 0;
-  return new ReadableStream({
-    pull(controller) {
-      const command = commands[index++];
-      if (command) {
-        console.log(command);
-        controller.enqueue(command);
-      } else {
-        controller.close();
-        // onExit();
-      }
+async function createExecutor(container) {
+  const process = await container.spawn("jsh");
+
+  let output = "";
+  let currentSymbol = null;
+  let currentResolve = null;
+  let timeout = null;
+
+  process.output.pipeTo(
+    new WritableStream({
+      write(data) {
+        output += data;
+
+        if (currentSymbol === "timeout") {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            currentResolve(output);
+            timeout = null;
+            currentSymbol = null;
+            currentResolve = null;
+            output = "";
+          }, 5000);
+        } else if (data.includes(currentSymbol)) {
+          currentResolve(output);
+          currentSymbol = null;
+          currentResolve = null;
+          output = "";
+        }
+      },
+    })
+  );
+
+  const waitFor = async (symbol) =>
+    new Promise((resolve) => {
+      currentSymbol = symbol;
+      currentResolve = resolve;
+    });
+
+  await waitFor("❯");
+
+  const executables = [
+    "❯",
+    "\r",
+    /\u001b\[\d*G/g,
+    "\u001b[?25h",
+    "\u001b[?25l",
+    "\u001b[?2004h",
+    /\u001b\[\d*J/g,
+    "\u001b[?2004l",
+  ];
+
+  // public API
+  return {
+    async run(command, symbol = "❯") {
+      const input = process.input.getWriter();
+      input.write(`${command}\r\n`);
+      const output = await waitFor(symbol);
+      await input.releaseLock();
+
+      console.log(output);
+
+      return executables
+        .reduce((str, next) => str.replaceAll(next, ""), output)
+        .split("\n");
     },
-  });
-};
+  };
+}
 
 const commandCache = createCache({
   getKey: ([, currentPath, run]) => `${currentPath} -> ${run}`,
   load: async ([container, currentPath, run]) => {
-    const spawn = async (command) => {
-      const process = await container.spawn("jsh");
-      let chunks = [];
+    const exec = await createExecutor(container);
 
-      process.output.pipeTo(
-        new WritableStream({
-          write(data) {
-            console.log(data);
-            chunks.push(data);
-          },
-        })
-      );
-
-      // createCommands(
-      //   [
-      //     `cd ${currentPath}\n`,
-      //     "ls -l\n",
-      //     `${command}\n`,
-      //     "cd ../\n",
-      //     "ls -l\n",
-      //   ],
-      //   () => process.kill()
-      // ).pipeTo();
-
-      await new Promise((resolve) => setTimeout(() => resolve(), 2000));
-
-      console.log("wtf");
-
-      const input = process.input.getWriter();
-
-      await input.write(`cd ${currentPath};\n echo "_1_2_3_4_5_6_"`);
-
-      console.log("hehe");
-
-      // await process.exit;
-
-      // console.log("- 1 hehe 1 -");
-
-      return chunks.join("\n");
-    };
-
-    const result = await spawn(run);
-
-    return result;
+    await exec.run(`cd ${currentPath}`);
+    return (await exec.run(`${run}`))
+      .map((part) =>
+        part.replace(`~/root/${currentPath}`, "").replaceAll(run, "")
+      )
+      .filter((part) => !!part)
+      .map((part) => parse(part).spans);
   },
 });
 
@@ -161,7 +175,22 @@ const Command = ({ run }) => {
 
   const result = commandCache.read(container, currentPath, run);
 
-  return <div>{result}</div>;
+  return (
+    <code>
+      <pre>{run}</pre>
+      <pre>
+        {result.map((line, index) => (
+          <div key={index}>
+            {line.map(({ text, color }, index) => (
+              <span key={index} style={{ color: color?.name }}>
+                {text}
+              </span>
+            ))}
+          </div>
+        ))}
+      </pre>
+    </code>
+  );
 };
 
 export { Webcontainer, Folder, File, Command };
