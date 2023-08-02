@@ -161,35 +161,41 @@ const commandCache = createCache({
 
     await exec.run(`cd ${currentPath}`);
     return (await exec.run(`${run}`))
-      .map((part) =>
-        part.replace(`~/root/${currentPath}`, "").replaceAll(run, "")
-      )
+      .map((part) => part.replace(`~/root/${currentPath}`, "").replace(run, ""))
       .filter((part) => !!part)
       .map((part) => parse(part).spans);
   },
 });
 
-const Command = ({ run }) => {
+const Command = ({ run, children }) => {
   const container = useContainer();
   const currentPath = usePath();
 
   const result = commandCache.read(container, currentPath, run);
 
   return (
-    <code>
-      <pre>{run}</pre>
-      <pre>
-        {result.map((line, index) => (
-          <div key={index}>
-            {line.map(({ text, color }, index) => (
-              <span key={index} style={{ color: color?.name }}>
-                {text}
-              </span>
+    <>
+      <details>
+        <summary>
+          Execution result: <pre style={{ display: "inline" }}>{run}</pre>
+        </summary>
+        <code>
+          <pre>
+            {result.map((line, index) => (
+              <div key={index}>
+                {line.map(({ text, color }, index) => (
+                  <span key={index} style={{ color: color?.name }}>
+                    {text}
+                  </span>
+                ))}
+              </div>
             ))}
-          </div>
-        ))}
-      </pre>
-    </code>
+          </pre>
+        </code>
+      </details>
+
+      {children}
+    </>
   );
 };
 

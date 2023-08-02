@@ -12,38 +12,61 @@ export default function Page() {
             name="package.json"
             value={JSON.stringify({
               name: "library",
-              scripts: { dev: "node index.js" },
+              scripts: { build: "webpack" },
+              devDependencies: {
+                webpack: "^5.38.1",
+                "webpack-cli": "^4.7.2",
+              },
             })}
           />
-          <Suspense fallback="executing...">
-            <Command run="npm run dev" />
-          </Suspense>
-        </Folder>
-
-        <Folder name="answer">
-          <File name="index.js" value="console.log(42 + 42 + 42)" />
           <File
-            name="package.json"
-            value={JSON.stringify({
-              name: "answer",
-              scripts: { dev: "node index.js" },
-            })}
+            name="webpack.config.js"
+            value={`const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  entry: {
+    main: './index.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+};
+`}
           />
           <Suspense fallback="executing...">
-            <Command run="npm run dev" />
-          </Suspense>
-        </Folder>
-
-        <Folder name="promise">
-          <File
-            name="index.js"
-            value="new Promise(resolve => setTimeout(() => {console.log('💩💩💩'); resolve();}, 200));"
-          />
-          <Suspense fallback="executing...">
-            <Command run="node index.js" />
+            <Command run="npm install">
+              <Command run="npm run build"></Command>
+            </Command>
           </Suspense>
         </Folder>
       </Webcontainer>
     </ClientSuspense>
   );
 }
+
+/* 
+<Folder name="answer">
+  <File name="index.js" value="console.log(42 + 42 + 42)" />
+  <File
+    name="package.json"
+    value={JSON.stringify({
+      name: "answer",
+      scripts: { dev: "node index.js" },
+    })}
+  />
+  <Suspense fallback="executing...">
+    <Command run="npm run dev" />
+  </Suspense>
+</Folder>
+
+<Folder name="promise">
+  <File
+    name="index.js"
+    value="new Promise(resolve => setTimeout(() => {console.log('💩💩💩'); resolve();}, 200));"
+  />
+  <Suspense fallback="executing...">
+    <Command run="node index.js" />
+  </Suspense>
+</Folder> */
