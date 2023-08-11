@@ -1,20 +1,3 @@
-// const HLMVP = () => (
-//   <webcontainer>
-//     <folder name="example">
-//       <folder name="kek">
-//         <file name="index.js" value="..." />
-//       </folder>
-
-//       <file name="index.js" value="..." />
-//       <file name="webpack.config.js" value="..." hidden />
-
-//       <watch>
-//         <command run="npm run build"/>
-//         <preview path="./dist/main.js" />
-//       </watch>
-//     </folder>
-//   </webcontainer>
-// );
 "use client";
 
 import { useEffect, useState, createContext, useContext } from "react";
@@ -66,10 +49,12 @@ const Folder = ({ name, children }) => {
 };
 
 const fileCache = createCache({
-  getKey: ([, currentPath, name]) => `${currentPath}/${name}`,
+  getKey: ([, currentPath, name, value]) => `${currentPath}/${name} = ${value}`,
   load: async ([container, currentPath, name, content]) => {
     await container.fs.mkdir(currentPath, { recursive: true });
     await container.fs.writeFile(`${currentPath}/${name}`, content);
+
+    return content;
   },
 });
 
@@ -77,11 +62,11 @@ const File = ({ name, value }) => {
   const container = useContainer();
   const currentPath = usePath();
 
-  fileCache.read(container, currentPath, name, value);
+  const content = fileCache.read(container, currentPath, name, value);
 
   return (
     <div>
-      {name} — <pre style={{ display: "inline" }}>{value}</pre>
+      {name} — <pre style={{ display: "inline" }}>{content}</pre>
     </div>
   );
 };
@@ -160,10 +145,12 @@ const commandCache = createCache({
     const exec = await createExecutor(container);
 
     await exec.run(`cd ${currentPath}`);
-    return (await exec.run(`${run}`))
+    const result = (await exec.run(`${run}`))
       .map((part) => part.replace(`~/root/${currentPath}`, "").replace(run, ""))
       .filter((part) => !!part)
       .map((part) => parse(part).spans);
+
+    return result;
   },
 });
 

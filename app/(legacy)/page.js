@@ -1,5 +1,8 @@
 import Link from "next/link";
 import Script from "next/script";
+import Font from "next/font/local";
+
+const Hlebozavod = Font({ src: "../../public/Hlebozavod.woff" });
 
 export default function Page() {
   return (
@@ -10,7 +13,9 @@ export default function Page() {
           alt="image of my face"
         />
 
-        <h1 style={{ maxWidth: 700 }}>Hi 👋🏻, I'm Dmitry Ivakhnenko.</h1>
+        <h1 className={Hlebozavod.className} style={{ maxWidth: 700 }}>
+          Dmitry Ivakhnenko.
+        </h1>
       </main>
 
       <footer className="full-width">

@@ -11,7 +11,7 @@
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "suspense": "^0.0.39"
+    "suspense": "^0.0.47"
   },
   "private": true,
   "type": "module"
