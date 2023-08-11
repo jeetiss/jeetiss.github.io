@@ -14,7 +14,7 @@ export default function Page() {
         />
 
         <h1 className={Hlebozavod.className} style={{ maxWidth: 700 }}>
-          Dmitry Ivakhnenko.
+          дима ивахненко
         </h1>
       </main>
 
