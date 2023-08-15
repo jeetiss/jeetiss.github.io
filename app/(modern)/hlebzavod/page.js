@@ -1,4 +1,5 @@
 import { Hlebozavod } from "@/components/font";
+import { Hover, Hovered, Default } from "@/components/hover";
 import styles from "./hlebzavod.module.css";
 
 const cx = (...variants) => variants.filter(Boolean).join(" ");
@@ -56,6 +57,15 @@ export default function Page() {
       <p className={cx(styles.paragraph, styles.outline, styles.outline_red)}>
         кисель сок мясо молоко
       </p>
+
+      <Hover as="p" className={styles.paragraph}>
+        <Default>Станиславского, 91</Default>
+
+        <Hovered>
+          С<Style number={1}>т</Style>аниславского<Style number={2}>,</Style>{" "}
+          <Style number={1}>9</Style>1
+        </Hovered>
+      </Hover>
     </main>
   );
 }
