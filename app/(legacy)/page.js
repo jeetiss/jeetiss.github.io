@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import Font from "next/font/local";
+import { Hover, Hovered, Default } from "@/components/hover";
 
 const Hlebozavod = Font({ src: "../../public/Hlebozavod.woff" });
 
@@ -13,9 +14,10 @@ export default function Page() {
           alt="image of my face"
         />
 
-        <h1 className={Hlebozavod.className} style={{ maxWidth: 700 }}>
-          дима ивахненко
-        </h1>
+        <Hover as="h1" className={Hlebozavod.className}>
+          <Hovered>дима ивахненко</Hovered>
+          <Default>dima ivakhnenko</Default>
+        </Hover>
       </main>
 
       <footer className="full-width">
