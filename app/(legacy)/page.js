@@ -1,9 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
-import Font from "next/font/local";
 import { Hover, Hovered, Default } from "@/components/hover";
-
-const Hlebozavod = Font({ src: "../../public/Hlebozavod.woff" });
+import { Hlebozavod } from "@/components/font";
 
 export default function Page() {
   return (

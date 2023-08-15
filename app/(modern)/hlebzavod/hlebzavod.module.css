@@ -1,0 +1,20 @@
+.paragraph {
+  margin: 10px 0;
+  line-height: 1;
+}
+
+.letters {
+  word-break: break-all;
+}
+
+.outline {
+  -webkit-text-stroke: 4px black;
+  text-stroke: 4px black;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.outline_red {
+  -webkit-text-stroke-color: red;
+  text-stroke-color: red;
+}
