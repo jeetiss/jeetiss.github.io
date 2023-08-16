@@ -1,6 +1,7 @@
 .paragraph {
   margin: 10px 0;
   line-height: 1;
+  color: var(--paragraph-color, black);
 }
 
 .paragraph__centered {
@@ -11,16 +12,18 @@
   word-break: break-all;
 }
 
-.outline {
-  -webkit-text-stroke: 4px black;
-  text-stroke: 4px black;
+.paragraph__outline {
+  -webkit-text-stroke: 4px var(--paragraph-color, black);
+  text-stroke: 4px var(--paragraph-color, black);
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
 }
 
-.outline_red {
-  -webkit-text-stroke-color: red;
-  text-stroke-color: red;
+@media (max-width: 800px) {
+  .paragraph__outline {
+    -webkit-text-stroke: 2px var(--paragraph-color, black);
+    text-stroke: 2px var(--paragraph-color, black);
+  }
 }
 
 .section {
@@ -57,4 +60,35 @@
   object-fit: cover;
 
   z-index: -1;
+}
+
+.section_image__small {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+
+  inset: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.font_size {
+  font-size: 128px;
+}
+
+@media (min-width: 800px) and (max-width: 900px) {
+  .font_size {
+    font-size: 96px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .font_size {
+    font-size: 64px;
+  }
+}
+
+@media (max-width: 500px) {
+  .font_size {
+    font-size: 48px;
+  }
 }

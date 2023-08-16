@@ -8,7 +8,7 @@ const Style = ({ number, children }) => (
   <span style={{ fontFeatureSettings: `'ss0${number}'` }}>{children}</span>
 );
 
-const Section = ({ bg, centered, children }) => (
+const Section = ({ bg, small, centered, children }) => (
   <section className={styles.section}>
     <div
       className={cx(
@@ -18,7 +18,15 @@ const Section = ({ bg, centered, children }) => (
     >
       {children}
     </div>
-    {bg && <img className={styles.section_image} src={bg} />}
+    {bg && (
+      <img
+        className={cx(
+          styles.section_image,
+          small && styles.section_image__small
+        )}
+        src={bg}
+      />
+    )}
   </section>
 );
 
@@ -34,9 +42,9 @@ const Paragraph = ({
       styles.paragraph,
       letters && styles.paragraph__letters,
       centered && styles.paragraph__centered,
-      outline && styles.outline
+      outline && styles.paragraph__outline
     )}
-    style={{ color }}
+    style={{ "--paragraph-color": color }}
   >
     {children}
   </p>
@@ -44,7 +52,7 @@ const Paragraph = ({
 
 export default function Page() {
   return (
-    <main className={Hlebozavod.className} style={{ fontSize: 128 }}>
+    <main className={cx(Hlebozavod.className, styles.font_size)}>
       <Section bg="images/mashina.png" centered>
         <Paragraph centered color="white">
           хлебозавод
@@ -54,21 +62,23 @@ export default function Page() {
       </Section>
 
       <Section>
-        <Paragraph letters>
+        <Paragraph letters centered>
           абвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890
         </Paragraph>
-        <Paragraph letters>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Paragraph>
+        <Paragraph letters centered>
+          ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        </Paragraph>
       </Section>
 
       <Section>
-        <Paragraph letters>
+        <Paragraph letters centered>
           {`!?:;#/\.,_‘’„“”-–—()[]{}«»‹›"'`}
           <Style number={1}>{`{}`}</Style>
           <Style number={2}>{`{}`}</Style>
           <Style number={3}>{`{}`}</Style>
           <Style number={4}>{`{}`}</Style>
         </Paragraph>
-        <Paragraph letters>
+        <Paragraph letters centered>
           {`©®TM°&%$€₽£¥@+−×÷=><@`}
           <Style number={1}>@</Style>
           <Style number={2}>@</Style>
@@ -88,15 +98,24 @@ export default function Page() {
         </Paragraph>
       </Section>
 
+      <Section bg="images/hleb.png" centered>
+        <Paragraph color="white">
+          В первый день работы предприятия, 23 марта 1927 года, было выпечено
+          120 пудов хлеба.
+        </Paragraph>
+      </Section>
+
       <Section centered>
         <Paragraph centered>
           .<Style number={1}>,</Style>,<Style number={2}>,</Style>
         </Paragraph>
       </Section>
 
-      <Section centered>
-        <Paragraph centered>
-          а если её маслом нашим, донским, полить да солью присыпать...
+      <Section bg="images/kid.png" small centered>
+        <Paragraph centered color="white">
+          а ты любишь
+          <br />
+          корочку?
         </Paragraph>
       </Section>
 
@@ -106,9 +125,13 @@ export default function Page() {
         </Paragraph>
       </Section>
 
-      <Section>
-        <Paragraph outline>торты консервы крупы хлеб</Paragraph>
-        <Paragraph outline>кисель сок мясо молоко</Paragraph>
+      <Section bg="images/magaz.png" small>
+        <Paragraph outline color="black">
+          торты консервы крупы хлеб
+        </Paragraph>
+        <Paragraph outline color="red">
+          кисель сок мясо молоко
+        </Paragraph>
       </Section>
 
       <Section centered>
@@ -120,6 +143,12 @@ export default function Page() {
             <Style number={1}>9</Style>1
           </Hovered>
         </Hover>
+      </Section>
+
+      <Section bg="images/mnogo-hleba.png" centered>
+        <Paragraph color="white">
+          <Style number={1}>the end</Style>
+        </Paragraph>
       </Section>
     </main>
   );
