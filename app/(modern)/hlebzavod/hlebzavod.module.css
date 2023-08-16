@@ -3,7 +3,11 @@
   line-height: 1;
 }
 
-.letters {
+.paragraph__centered {
+  text-align: center;
+}
+
+.paragraph__letters {
   word-break: break-all;
 }
 
@@ -17,4 +21,40 @@
 .outline_red {
   -webkit-text-stroke-color: red;
   text-stroke-color: red;
+}
+
+.section {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+.section_body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 24px;
+
+  justify-content: center;
+}
+
+.section_body__centered {
+  align-items: center;
+}
+
+.section_image {
+  position: absolute;
+  inset: 0px;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  z-index: -1;
 }

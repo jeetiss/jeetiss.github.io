@@ -8,64 +8,119 @@ const Style = ({ number, children }) => (
   <span style={{ fontFeatureSettings: `'ss0${number}'` }}>{children}</span>
 );
 
+const Section = ({ bg, centered, children }) => (
+  <section className={styles.section}>
+    <div
+      className={cx(
+        styles.section_body,
+        centered && styles.section_body__centered
+      )}
+    >
+      {children}
+    </div>
+    {bg && <img className={styles.section_image} src={bg} />}
+  </section>
+);
+
+const Paragraph = ({
+  children,
+  centered,
+  letters,
+  outline,
+  color = "black",
+}) => (
+  <p
+    className={cx(
+      styles.paragraph,
+      letters && styles.paragraph__letters,
+      centered && styles.paragraph__centered,
+      outline && styles.outline
+    )}
+    style={{ color }}
+  >
+    {children}
+  </p>
+);
+
 export default function Page() {
   return (
     <main className={Hlebozavod.className} style={{ fontSize: 128 }}>
-      <p className={cx(styles.paragraph, styles.letters)}>
-        абвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890
-      </p>
+      <Section bg="images/mashina.png" centered>
+        <Paragraph centered color="white">
+          хлебозавод
+          <br />
+          (1927)
+        </Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.letters)}>
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ
-      </p>
+      <Section>
+        <Paragraph letters>
+          абвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890
+        </Paragraph>
+        <Paragraph letters>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.letters)}>
-        {`!?:;#/\.,_‘’„“”-–—()[]{}«»‹›"'`}
-        <Style number={1}>{`{}`}</Style>
-        <Style number={2}>{`{}`}</Style>
-        <Style number={3}>{`{}`}</Style>
-        <Style number={4}>{`{}`}</Style>
-      </p>
+      <Section>
+        <Paragraph letters>
+          {`!?:;#/\.,_‘’„“”-–—()[]{}«»‹›"'`}
+          <Style number={1}>{`{}`}</Style>
+          <Style number={2}>{`{}`}</Style>
+          <Style number={3}>{`{}`}</Style>
+          <Style number={4}>{`{}`}</Style>
+        </Paragraph>
+        <Paragraph letters>
+          {`©®TM°&%$€₽£¥@+−×÷=><@`}
+          <Style number={1}>@</Style>
+          <Style number={2}>@</Style>
+          <Style number={3}>@</Style>
+          <Style number={4}>@</Style>
+          <Style number={5}>@</Style>
+        </Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.letters)}>
-        {`©®TM°&%$€₽£¥@+−×÷=><@`}
-        <Style number={1}>@</Style>
-        <Style number={2}>@</Style>
-        <Style number={3}>@</Style>
-        <Style number={4}>@</Style>
-        <Style number={5}>@</Style>
-      </p>
+      <Section centered>
+        <Paragraph letters>↑↗→↘↓↙←↖↔↕</Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.letters)}>↑↗→↘↓↙←↖↔↕</p>
+      <Section centered>
+        <Paragraph centered>
+          <Style number={1}>зкты</Style>
+        </Paragraph>
+      </Section>
 
-      <p className={styles.paragraph}>
-        <Style number={1}>зкты</Style>
-      </p>
+      <Section centered>
+        <Paragraph centered>
+          .<Style number={1}>,</Style>,<Style number={2}>,</Style>
+        </Paragraph>
+      </Section>
 
-      <p className={styles.paragraph}>
-        .<Style number={1}>,</Style>,<Style number={2}>,</Style>
-      </p>
+      <Section centered>
+        <Paragraph centered>
+          а если её маслом нашим, донским, полить да солью присыпать...
+        </Paragraph>
+      </Section>
 
-      <p className={styles.paragraph}>
-        а если её маслом нашим, донским, полить да солью присыпать...
-      </p>
+      <Section centered>
+        <Paragraph centered>
+          а если её маслом нашим, донским, полить да солью присыпать...
+        </Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.outline)}>
-        торты консервы крупы хлеб
-      </p>
+      <Section>
+        <Paragraph outline>торты консервы крупы хлеб</Paragraph>
+        <Paragraph outline>кисель сок мясо молоко</Paragraph>
+      </Section>
 
-      <p className={cx(styles.paragraph, styles.outline, styles.outline_red)}>
-        кисель сок мясо молоко
-      </p>
+      <Section centered>
+        <Hover as={"p"} className={styles.paragraph}>
+          <Default>Станиславского, 91</Default>
 
-      <Hover as="p" className={styles.paragraph}>
-        <Default>Станиславского, 91</Default>
-
-        <Hovered>
-          С<Style number={1}>т</Style>аниславского<Style number={2}>,</Style>{" "}
-          <Style number={1}>9</Style>1
-        </Hovered>
-      </Hover>
+          <Hovered>
+            С<Style number={1}>т</Style>аниславского<Style number={2}>,</Style>{" "}
+            <Style number={1}>9</Style>1
+          </Hovered>
+        </Hover>
+      </Section>
     </main>
   );
 }
