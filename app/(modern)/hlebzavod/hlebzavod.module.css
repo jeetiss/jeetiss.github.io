@@ -13,16 +13,16 @@
 }
 
 .paragraph__outline {
-  -webkit-text-stroke: 4px var(--paragraph-color, black);
-  text-stroke: 4px var(--paragraph-color, black);
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
+  -webkit-text-stroke: var(--stroke-width) var(--stroke-color, black);
+  text-stroke: var(--stroke-width) var(--stroke-color, black);
+  -webkit-text-fill-color: var(--paragraph-color, black);
+  text-fill-color: var(--paragraph-color, black);
 }
 
 @media (max-width: 800px) {
   .paragraph__outline {
-    -webkit-text-stroke: 2px var(--paragraph-color, black);
-    text-stroke: 2px var(--paragraph-color, black);
+    -webkit-text-stroke: var(--stroke-width) var(--stroke-color, black);
+    text-stroke: var(--stroke-width) var(--stroke-color, black);
   }
 }
 

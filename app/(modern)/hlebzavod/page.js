@@ -36,6 +36,8 @@ const Paragraph = ({
   letters,
   outline,
   color = "black",
+  strokeColor = "transparent",
+  strokeWidth = 2,
 }) => (
   <p
     className={cx(
@@ -44,7 +46,11 @@ const Paragraph = ({
       centered && styles.paragraph__centered,
       outline && styles.paragraph__outline
     )}
-    style={{ "--paragraph-color": color }}
+    style={{
+      "--paragraph-color": color,
+      "--stroke-color": strokeColor,
+      "--stroke-width": `${strokeWidth}px`,
+    }}
   >
     {children}
   </p>
@@ -54,7 +60,13 @@ export default function Page() {
   return (
     <main className={cx(Hlebozavod.className, styles.font_size)}>
       <Section bg="images/mashina.png" centered>
-        <Paragraph centered color="white">
+        <Paragraph
+          centered
+          outline
+          color="white"
+          strokeColor="#6b6b6b"
+          strokeWidth={1}
+        >
           хлебозавод
           <br />
           (1927)
@@ -62,39 +74,33 @@ export default function Page() {
       </Section>
 
       <Section>
-        <Paragraph letters centered>
-          абвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890
-        </Paragraph>
-        <Paragraph letters centered>
-          ABCDEFGHIJKLMNOPQRSTUVWXYZ
-        </Paragraph>
-      </Section>
-
-      <Section>
-        <Paragraph letters centered>
-          {`!?:;#/\.,_‘’„“”-–—()[]{}«»‹›"'`}
+        <Paragraph letters>
+          абвгдеёжз<Style number={1}>з</Style>
+          ийк<Style number={1}>к</Style>
+          лмнопрст<Style number={1}>т</Style>
+          уфхцчшщъы<Style number={1}>ы</Style>ьэюя12<Style number={1}>2</Style>
+          3456<Style number={1}>6</Style>789<Style number={1}>9</Style>0ABCD
+          <Style number={1}>D</Style>EF<Style number={1}>F</Style>GH
+          <Style number={1}>H</Style>I<Style number={1}>I</Style>J
+          <Style number={1}>J</Style>KL<Style number={1}>L</Style>MNOP
+          <Style number={1}>P</Style>QRSTUVWXYZ.<Style number={1}>,</Style>,
+          <Style number={2}>,</Style>
+          {`!?:;#/_‘’„“”-–—«»‹›"'()[]{}`}
           <Style number={1}>{`{}`}</Style>
           <Style number={2}>{`{}`}</Style>
           <Style number={3}>{`{}`}</Style>
           <Style number={4}>{`{}`}</Style>
-        </Paragraph>
-        <Paragraph letters centered>
           {`©®TM°&%$€₽£¥@+−×÷=><@`}
           <Style number={1}>@</Style>
           <Style number={2}>@</Style>
           <Style number={3}>@</Style>
           <Style number={4}>@</Style>
           <Style number={5}>@</Style>
-        </Paragraph>
-      </Section>
-
-      <Section centered>
-        <Paragraph letters>↑↗→↘↓↙←↖↔↕</Paragraph>
-      </Section>
-
-      <Section centered>
-        <Paragraph centered>
-          <Style number={1}>зкты</Style>
+          ↑↗→↘↓↙←↖↔↕
+          <Style number={1}>↑↗→↘↓↙←↖↔↕</Style>
+          <Style number={2}>↑↗→↘↓↙</Style>
+          <Style number={3}>↗↘</Style>
+          <Style number={4}>↑</Style>
         </Paragraph>
       </Section>
 
@@ -106,9 +112,7 @@ export default function Page() {
       </Section>
 
       <Section centered>
-        <Paragraph centered>
-          .<Style number={1}>,</Style>,<Style number={2}>,</Style>
-        </Paragraph>
+        <Paragraph centered></Paragraph>
       </Section>
 
       <Section bg="images/kid.png" small centered>
@@ -126,10 +130,10 @@ export default function Page() {
       </Section>
 
       <Section bg="images/magaz.png" small>
-        <Paragraph outline color="black">
+        <Paragraph outline color="white" strokeColor="black">
           торты консервы крупы хлеб
         </Paragraph>
-        <Paragraph outline color="red">
+        <Paragraph outline color="white" strokeColor="red">
           кисель сок мясо молоко
         </Paragraph>
       </Section>
@@ -146,7 +150,7 @@ export default function Page() {
       </Section>
 
       <Section bg="images/mnogo-hleba.png" centered>
-        <Paragraph color="white">
+        <Paragraph outline color="white" strokeColor="#6b6b6b" strokeWidth={1}>
           <Style number={1}>the end</Style>
         </Paragraph>
       </Section>
