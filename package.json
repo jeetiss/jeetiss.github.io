@@ -6,13 +6,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "@vanilla-extract/css": "^1.13.0",
+    "@vanilla-extract/dynamic": "^2.0.3",
     "@webcontainer/api": "^1.1.5",
     "ansicolor": "^1.1.100",
+    "date-fns": "^2.30.0",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "suspense": "^0.0.47"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@vanilla-extract/next-plugin": "^2.3.0"
+  }
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Hover, Hovered, Default } from "@/components/hover";
 import { Hlebozavod } from "@/components/font";
+// import { BathTile } from "@/components/bath-tile";
 
 export default function Page() {
   return (
@@ -16,6 +17,8 @@ export default function Page() {
           <Hovered>дима ивахненко</Hovered>
           <Default>dima ivakhnenko</Default>
         </Hover>
+
+        {/* <BathTile /> */}
       </main>
 
       <footer className="full-width">

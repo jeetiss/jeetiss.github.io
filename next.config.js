@@ -1,3 +1,5 @@
+import { createVanillaExtractPlugin } from "@vanilla-extract/next-plugin";
+
 const getHeadersForSharedMemory = (source) => ({
   source,
   headers: [
@@ -14,4 +16,6 @@ const nextConfig = {
   headers: () => [getHeadersForSharedMemory("/:path*")],
 };
 
-export default nextConfig;
+const withExtract = createVanillaExtractPlugin();
+
+export default withExtract(nextConfig);
