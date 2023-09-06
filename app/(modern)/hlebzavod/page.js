@@ -1,4 +1,4 @@
-import { Hlebozavod } from "@/components/font";
+import { Hlebozavod, Inter } from "@/components/font";
 import { Hover, Hovered, Default } from "@/components/hover";
 import styles from "./hlebzavod.module.css";
 
@@ -74,6 +74,7 @@ export default function Page() {
       </Section>
 
       <Section>
+        <div className={cx(Inter.className)} style={{ fontSize: 24}}>Глифы:</div>
         <Paragraph letters>
           абвгдеёжз<Style number={1}>з</Style>
           ийк<Style number={1}>к</Style>
