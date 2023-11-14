@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 export default function PageLayout({ children }) {
   return (
     <html lang="en">
